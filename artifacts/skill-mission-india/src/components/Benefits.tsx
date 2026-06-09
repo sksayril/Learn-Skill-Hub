@@ -1,7 +1,7 @@
-import { motion, useInView } from "framer-motion";
-"use client"
+"use client";
 
 import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 import { Gift, Award, Briefcase, Monitor, IndianRupee, Rocket } from "lucide-react";
 
 const benefits = [

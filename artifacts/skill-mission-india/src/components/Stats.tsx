@@ -1,7 +1,7 @@
-import { motion, useInView, useMotionValue, useTransform, animate } from "framer-motion";
-"use client"
+"use client";
 
 import { useRef, useEffect } from "react";
+import { motion, useInView, useMotionValue, useTransform, animate } from "framer-motion";
 import { GraduationCap, Building2, FolderOpen, Briefcase } from "lucide-react";
 
 const stats = [

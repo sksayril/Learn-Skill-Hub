@@ -1,7 +1,7 @@
-import { motion, useInView, AnimatePresence } from "framer-motion";
-"use client"
+"use client";
 
 import { useRef, useState } from "react";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 import { Plus, Minus } from "lucide-react";
 
 const faqs = [

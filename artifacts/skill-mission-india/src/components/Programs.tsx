@@ -1,7 +1,7 @@
-import { motion, useInView } from "framer-motion";
-"use client"
+"use client";
 
 import { useRef, useState } from "react";
+import { motion, useInView } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { BookOpen, Globe, Landmark, Factory, HeartHandshake, ArrowUpRight, CheckCircle } from "lucide-react";
 

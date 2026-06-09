@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "./theme-provider";
 import { Button } from "@/components/ui/button";
-import logoImg from "@assets/WhatsApp_Image_2026-06-06_at_13.33.42_1781031915590.jpeg";
+const logoImg = "/logo.jpeg";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);

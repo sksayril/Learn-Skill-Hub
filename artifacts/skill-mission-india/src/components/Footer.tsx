@@ -1,10 +1,10 @@
-import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, ArrowRight } from "lucide-react";
-"use client"
+"use client";
 
 import { useState } from "react";
+import { motion } from "framer-motion";
+import { Mail, Phone, MapPin, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import logoImg from "@assets/WhatsApp_Image_2026-06-06_at_13.33.42_1781031915590.jpeg";
+const logoImg = "/logo.jpeg";
 
 const links = {
   Programs: ["Office Automation", "UNICEF E-Placement", "PM VIKAS", "MSME Skills", "CSR Programs"],

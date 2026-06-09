@@ -8,14 +8,21 @@
     "scripts"
   ],
   "scripts": {
-    "dev": "npm run dev --workspace=artifacts/skill-mission-india",
-    "build": "npm run build --workspace=artifacts/skill-mission-india",
-    "start": "npm run start --workspace=artifacts/skill-mission-india",
-    "typecheck": "npm run typecheck --workspace=artifacts/skill-mission-india"
+    "dev": "npm run dev --workspace=@workspace/skill-mission-india",
+    "dev:api": "npm run dev --workspace=@workspace/api-server",
+    "dev:mockup": "npm run dev --workspace=@workspace/mockup-sandbox",
+    "build": "npm run typecheck --workspaces --if-present && npm run build --workspaces --if-present",
+    "start": "npm run start --workspace=@workspace/skill-mission-india",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "codegen": "npm run codegen --workspace=@workspace/api-spec",
+    "db:push": "npm run push --workspace=@workspace/db"
   },
   "private": true,
   "devDependencies": {
     "prettier": "^3.8.3",
     "typescript": "~5.9.3"
+  },
+  "overrides": {
+    "esbuild": "0.27.3"
   }
 }

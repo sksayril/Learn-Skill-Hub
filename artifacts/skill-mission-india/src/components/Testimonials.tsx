@@ -1,7 +1,7 @@
-import { motion, AnimatePresence, useInView } from "framer-motion";
-"use client"
+"use client";
 
 import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence, useInView } from "framer-motion";
 import { ChevronLeft, ChevronRight, Quote, Star } from "lucide-react";
 
 const testimonials = [
