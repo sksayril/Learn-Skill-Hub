@@ -1,0 +1,222 @@
+Create a world-class modern Education, Skill Development & Employment Portal Landing Page using Next.js 15, React, TypeScript, Tailwind CSS, Framer Motion, GSAP, and ShadCN UI.
+
+Project Name:
+Skill Mission India
+
+Purpose:
+A platform for Government Skill Development Projects, CSR Programs, Placement Programs, Training Centre Onboarding, Student Registration, Employment Opportunities, UNICEF Programs, NIELIT Programs, PM VIKAS, MSME Projects, Infosys, IBM, Tech Mahindra, NRLM and Banking Sector Skill Development Initiatives.
+
+Design Style:
+
+* Premium Government + Corporate CSR Theme
+* Modern SaaS Design
+* Glassmorphism UI
+* Smooth Animations
+* Apple-level Clean Design
+* Modern Typography
+* Professional Corporate Feel
+* Mobile First Responsive Design
+* Dark & Light Mode Support
+
+Color Palette:
+Primary: #0B1F4D
+Secondary: #00C2FF
+Accent: #00E5A8
+Background: #F8FAFC
+Text: #0F172A
+
+Fonts:
+
+* Poppins
+* Inter
+
+Animations:
+Use Framer Motion extensively.
+
+Hero Section:
+
+* Full screen animated hero
+* Animated particle background
+* Floating gradient blobs
+* Smooth parallax effects
+* Animated statistics counters
+* Typewriter headline animation
+* CTA button hover effects
+* Floating cards animation
+* Scroll reveal effects
+
+Hero Content:
+"Empowering Youth Through Skills, Employment & Entrepreneurship"
+
+Subheading:
+"Government, CSR and Industry-backed training programs connecting youth with opportunities."
+
+Buttons:
+
+* Apply Now
+* Become Training Partner
+
+Trust Section:
+Display partner logos in an infinite auto-scrolling marquee.
+
+Logos:
+
+* NIELIT
+* UNICEF
+* Infosys
+* IBM
+* Tech Mahindra
+* MSME
+* PM VIKAS
+* PNB
+* NRLM
+
+Animation:
+
+* Continuous horizontal scrolling
+* Hover pause effect
+* Fade edges
+
+Programs Section:
+Create premium cards with:
+
+* 3D hover effect
+* Glassmorphism
+* Animated icons
+* Gradient borders
+* Tilt effect
+
+Programs:
+
+1. Office Automation Accounting & Publishing Assistant
+2. UNICEF E-Placement
+3. PM VIKAS
+4. MSME Skill Development
+5. CSR Skill Programs
+
+Each card should contain:
+
+* Program Details
+* Benefits
+* Apply Button
+
+Student Benefits Section:
+Create animated feature cards with:
+
+* Icon animation
+* Staggered entrance effects
+* Hover scaling
+
+Benefits:
+
+* Free Training
+* Government Certification
+* Placement Support
+* Digital Skills
+* Stipend Opportunities
+* Entrepreneurship Support
+
+Training Centre Partner Section:
+Use modern dashboard-style design.
+
+Features:
+
+* Revenue Opportunities
+* CSR Projects
+* Government Projects
+* Student Support
+* Centralized Management
+
+Include animated dashboard mockups.
+
+Success Statistics:
+Animated count-up numbers:
+
+* 50,000+ Students Trained
+* 1,000+ Training Centres
+* 100+ Projects
+* 10,000+ Placements
+
+Eligibility Checker:
+Interactive multi-step form with:
+
+* Smooth transitions
+* Progress indicator
+* Real-time validation
+* Animated form fields
+
+Success Stories Section:
+Create testimonial slider using Framer Motion.
+
+Features:
+
+* Auto slide
+* Swipe support
+* Animated transitions
+* Glass cards
+
+Coverage Map:
+Interactive India map highlighting active districts and states.
+
+Application Section:
+Modern multi-step registration form.
+
+Fields:
+
+* Name
+* Mobile
+* Email
+* Gender
+* Category
+* Qualification
+* District
+* Program Selection
+* Document Upload
+
+Animations:
+
+* Floating labels
+* Step transitions
+* Success animation
+
+FAQ Section:
+Animated accordion with smooth height transitions.
+
+Footer:
+Modern corporate footer including:
+
+* Contact Details
+* Social Media
+* Quick Links
+* Newsletter Subscription
+
+Framer Motion Requirements:
+
+* Scroll-triggered animations
+* Parallax effects
+* Stagger animations
+* Page load animations
+* Hover interactions
+* Magnetic buttons
+* Smooth reveal effects
+* Animated counters
+* Floating UI elements
+
+Performance Requirements:
+
+* 95+ Lighthouse Score
+* Optimized images
+* Lazy loading
+* SEO optimized
+* Fast loading
+
+Additional Premium Effects:
+
+* Mouse-following gradient
+* Cursor glow effect
+* Animated background particles
+* Smooth section transitions
+* Floating glass cards
+* Premium SaaS-style interactions
+
+The final result should look comparable to Stripe, Linear, Notion, Framer, Vercel and modern SaaS websites while maintaining a professional Government Skill Development and CSR project identity.

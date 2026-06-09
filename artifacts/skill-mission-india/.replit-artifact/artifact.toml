@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Skill Mission India"
+version = "1.0.0"
+id = "artifacts/skill-mission-india"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 18959
+
+[services.development]
+run = "pnpm --filter @workspace/skill-mission-india run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/skill-mission-india", "run", "build" ]
+publicDir = "artifacts/skill-mission-india/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "18959"
+BASE_PATH = "/"
