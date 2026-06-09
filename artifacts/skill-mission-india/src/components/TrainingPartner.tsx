@@ -1,4 +1,6 @@
 import { motion, useInView } from "framer-motion";
+"use client"
+
 import { useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { TrendingUp, Building2, ShieldCheck, Users, LayoutDashboard, ArrowRight } from "lucide-react";

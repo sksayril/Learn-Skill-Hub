@@ -1,4 +1,6 @@
 import { motion, useInView } from "framer-motion";
+"use client"
+
 import { useRef } from "react";
 import { Gift, Award, Briefcase, Monitor, IndianRupee, Rocket } from "lucide-react";
 

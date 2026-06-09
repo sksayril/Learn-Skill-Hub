@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, ArrowRight } from "lucide-react";
+"use client"
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import logoImg from "@assets/WhatsApp_Image_2026-06-06_at_13.33.42_1781031915590.jpeg";

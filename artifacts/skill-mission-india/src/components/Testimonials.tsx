@@ -1,4 +1,6 @@
 import { motion, AnimatePresence, useInView } from "framer-motion";
+"use client"
+
 import { useState, useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight, Quote, Star } from "lucide-react";
 
