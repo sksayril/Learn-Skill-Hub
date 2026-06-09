@@ -131,7 +131,7 @@ export function Testimonials() {
             initial={{ opacity: 0, x: direction * 80 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -direction * 80 }}
-            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] as const }}
             className={`relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br ${t.bg} backdrop-blur-sm`}
             data-testid={`testimonial-card-${current}`}
           >
