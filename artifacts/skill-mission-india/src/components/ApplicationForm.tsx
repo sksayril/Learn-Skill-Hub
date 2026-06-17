@@ -171,7 +171,7 @@ export function ApplicationForm() {
   }
 
   return (
-    <section id="apply" className="py-24 bg-background">
+    <section id="apply" className="py-24 bg-orange-surface">
       <div className="container mx-auto px-4 md:px-6 max-w-2xl">
         <motion.div
           initial={{ opacity: 0, y: 30 }}

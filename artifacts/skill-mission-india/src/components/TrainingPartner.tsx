@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { TrendingUp, Building2, ShieldCheck, Users, LayoutDashboard, ArrowRight } from "lucide-react";
+import { EDU_IMAGES } from "@/lib/images";
 
 const features = [
   { icon: TrendingUp, label: "Revenue Opportunities", value: "₹2L+/mo", color: "text-accent" },
@@ -21,7 +22,7 @@ export function TrainingPartner() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section className="py-24 bg-muted/30" ref={ref}>
+    <section className="py-24 bg-orange-surface" ref={ref}>
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <motion.div
@@ -75,8 +76,17 @@ export function TrainingPartner() {
             initial={{ opacity: 0, x: 40 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="relative"
+            className="relative space-y-4"
           >
+            <div className="rounded-2xl overflow-hidden border border-border shadow-lg">
+              <img
+                src={EDU_IMAGES.trainingPartner.src}
+                alt={EDU_IMAGES.trainingPartner.alt}
+                className="w-full h-52 object-cover"
+              />
+            </div>
+
+            <div className="relative">
             <div className="absolute inset-0 bg-gradient-to-tr from-primary/5 to-secondary/5 rounded-3xl rotate-2 scale-105 border border-border" />
             <div className="relative bg-card border border-border rounded-3xl p-6 shadow-2xl overflow-hidden">
               <div className="flex items-center justify-between mb-6">
@@ -119,6 +129,7 @@ export function TrainingPartner() {
                   </div>
                 ))}
               </div>
+            </div>
             </div>
           </motion.div>
         </div>

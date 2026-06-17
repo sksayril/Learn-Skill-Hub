@@ -18,12 +18,12 @@ const doubled = [...partners, ...partners, ...partners];
 
 export function Marquee() {
   return (
-    <section id="partners" className="py-12 border-y border-border bg-background overflow-hidden relative">
-      <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
-      <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
+    <section id="partners" className="py-12 border-y border-orange-200 bg-orange-surface-warm overflow-hidden relative">
+      <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-orange-50 to-transparent z-10 pointer-events-none" />
+      <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-orange-50 to-transparent z-10 pointer-events-none" />
 
       <div className="container mx-auto px-4 text-center mb-8">
-        <p className="text-xs font-semibold tracking-[0.2em] text-muted-foreground uppercase">
+        <p className="text-xs font-semibold tracking-[0.2em] text-orange-800/60 uppercase">
           Trusted by government bodies & industry leaders
         </p>
       </div>

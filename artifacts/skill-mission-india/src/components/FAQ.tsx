@@ -85,7 +85,7 @@ export function FAQ() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section className="py-24 bg-muted/30" ref={ref}>
+    <section className="py-24 bg-orange-surface-warm" ref={ref}>
       <div className="container mx-auto px-4 md:px-6 max-w-3xl">
         <motion.div
           initial={{ opacity: 0, y: 30 }}

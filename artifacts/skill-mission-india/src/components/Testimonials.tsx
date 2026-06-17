@@ -3,6 +3,8 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { ChevronLeft, ChevronRight, Quote, Star } from "lucide-react";
+import { EDU_IMAGES } from "@/lib/images";
+import { Motion3DCard } from "@/components/Motion3DCard";
 
 const testimonials = [
   {
@@ -11,7 +13,8 @@ const testimonials = [
     program: "Office Automation",
     quote:
       "After completing the NIELIT Office Automation course, I got placed at a reputed CA firm within two months. The free training literally changed my life — I had no idea what Tally was before this program.",
-    avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b8e5?w=120&q=80&auto=format&fit=crop&crop=face",
+    avatar: EDU_IMAGES.testimonials.avatars[0].src,
+    avatarAlt: EDU_IMAGES.testimonials.avatars[0].alt,
     bg: "from-blue-900/60 to-cyan-900/40",
     rating: 5,
   },
@@ -21,7 +24,8 @@ const testimonials = [
     program: "PM VIKAS",
     quote:
       "As a carpenter, I never thought I'd get formal certification. PM VIKAS gave me a government certificate and helped me link with a bank loan for my small furniture workshop. Business is growing now.",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&q=80&auto=format&fit=crop&crop=face",
+    avatar: EDU_IMAGES.testimonials.avatars[1].src,
+    avatarAlt: EDU_IMAGES.testimonials.avatars[1].alt,
     bg: "from-amber-900/60 to-orange-900/40",
     rating: 5,
   },
@@ -31,7 +35,8 @@ const testimonials = [
     program: "UNICEF E-Placement",
     quote:
       "The UNICEF E-Placement program placed me as a data entry operator in Delhi within 45 days of completing training. I was skeptical at first, but the placement support team was exceptional.",
-    avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=120&q=80&auto=format&fit=crop&crop=face",
+    avatar: EDU_IMAGES.testimonials.avatars[2].src,
+    avatarAlt: EDU_IMAGES.testimonials.avatars[2].alt,
     bg: "from-purple-900/60 to-pink-900/40",
     rating: 5,
   },
@@ -41,7 +46,8 @@ const testimonials = [
     program: "CSR Skill Program",
     quote:
       "Tech Mahindra's CSR program gave me hands-on IT training with real projects. I'm now working as a junior developer. The stipend during training also helped my family financially.",
-    avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=120&q=80&auto=format&fit=crop&crop=face",
+    avatar: EDU_IMAGES.testimonials.avatars[3].src,
+    avatarAlt: EDU_IMAGES.testimonials.avatars[3].alt,
     bg: "from-emerald-900/60 to-teal-900/40",
     rating: 5,
   },
@@ -51,7 +57,8 @@ const testimonials = [
     program: "MSME Skill Development",
     quote:
       "I started my own tailoring unit after the MSME program. The entrepreneurship support and bank linkage was invaluable. I now employ 4 other women from my village.",
-    avatar: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=120&q=80&auto=format&fit=crop&crop=face",
+    avatar: EDU_IMAGES.testimonials.avatars[4].src,
+    avatarAlt: EDU_IMAGES.testimonials.avatars[4].alt,
     bg: "from-rose-900/60 to-red-900/40",
     rating: 5,
   },
@@ -79,15 +86,14 @@ export function Testimonials() {
   const t = testimonials[current];
 
   return (
-    <section className="py-28 bg-[#060E1E] relative overflow-hidden" ref={ref}>
-      {/* Background image with overlay */}
+    <section className="py-28 bg-orange-surface-alt relative overflow-hidden" ref={ref}>
       <div className="absolute inset-0 z-0">
         <img
-          src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1920&q=60&auto=format&fit=crop"
-          alt=""
-          className="w-full h-full object-cover opacity-10"
+          src={EDU_IMAGES.testimonials.background.src}
+          alt={EDU_IMAGES.testimonials.background.alt}
+          className="w-full h-full object-cover opacity-15"
         />
-        <div className="absolute inset-0 bg-[#060E1E]/90" />
+        <div className="absolute inset-0 bg-orange-surface-alt/90" />
       </div>
 
       <div className="container mx-auto px-4 md:px-6 max-w-5xl relative z-10">
@@ -97,13 +103,13 @@ export function Testimonials() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="inline-block px-4 py-2 rounded-full bg-purple-500/15 text-purple-300 border border-purple-400/25 text-xs font-bold tracking-[0.2em] uppercase mb-5">
+          <span className="inline-block px-4 py-2 rounded-full bg-orange-500/15 text-orange-800 border border-orange-300 text-xs font-bold tracking-[0.2em] uppercase mb-5">
             Success Stories
           </span>
-          <h2 className="text-4xl md:text-6xl font-black text-white mb-4">
+          <h2 className="text-4xl md:text-6xl font-black text-orange-950 mb-4">
             Lives Transformed
           </h2>
-          <p className="text-white/50 text-lg max-w-xl mx-auto">
+          <p className="text-orange-900/60 text-lg max-w-xl mx-auto">
             Real stories from real students — across every corner of India.
           </p>
         </motion.div>
@@ -115,11 +121,11 @@ export function Testimonials() {
               key={i}
               onClick={() => { setDirection(i > current ? 1 : -1); setCurrent(i); }}
               className={`relative w-10 h-10 rounded-full overflow-hidden border-2 transition-all duration-300 ${
-                i === current ? "border-secondary scale-110 shadow-[0_0_20px_rgba(0,194,255,0.5)]" : "border-white/20 opacity-50 hover:opacity-80"
+                i === current ? "border-orange-500 scale-110 shadow-[0_0_20px_rgba(249,115,22,0.4)]" : "border-orange-200 opacity-60 hover:opacity-90"
               }`}
               data-testid={`button-testimonial-avatar-${i}`}
             >
-              <img src={t2.avatar} alt={t2.name} className="w-full h-full object-cover" />
+              <img src={t2.avatar} alt={t2.avatarAlt} className="w-full h-full object-cover" />
             </button>
           ))}
         </div>
@@ -132,11 +138,17 @@ export function Testimonials() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -direction * 80 }}
             transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] as const }}
-            className={`relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br ${t.bg} backdrop-blur-sm`}
+            className="relative"
             data-testid={`testimonial-card-${current}`}
           >
+            <Motion3DCard
+              tilt={10}
+              hoverScale={1.02}
+              lift={6}
+              innerClassName="relative overflow-hidden rounded-3xl border border-orange-200 bg-white/90 backdrop-blur-sm shadow-lg shadow-orange-100"
+            >
             {/* Decorative quote */}
-            <div className="absolute top-6 right-6 text-white/5">
+            <div className="absolute top-6 right-6 text-orange-200">
               <Quote size={100} />
             </div>
 
@@ -144,11 +156,11 @@ export function Testimonials() {
               {/* Avatar */}
               <div className="flex-shrink-0">
                 <div className="relative">
-                  <div className="w-20 h-20 rounded-2xl overflow-hidden border-2 border-white/20 shadow-2xl">
-                    <img src={t.avatar} alt={t.name} className="w-full h-full object-cover" />
+                  <div className="w-20 h-20 rounded-2xl overflow-hidden border-2 border-orange-200 shadow-lg">
+                    <img src={t.avatar} alt={t.avatarAlt} className="w-full h-full object-cover" />
                   </div>
-                  <div className="absolute -bottom-2 -right-2 w-7 h-7 rounded-full bg-secondary flex items-center justify-center shadow-lg">
-                    <span className="text-[#0B1F4D] text-xs font-black">✓</span>
+                  <div className="absolute -bottom-2 -right-2 w-7 h-7 rounded-full bg-orange-500 flex items-center justify-center shadow-lg">
+                    <span className="text-white text-xs font-black">✓</span>
                   </div>
                 </div>
               </div>
@@ -160,25 +172,26 @@ export function Testimonials() {
                     <Star key={i} size={14} className="fill-amber-400 text-amber-400" />
                   ))}
                 </div>
-                <p className="text-lg md:text-xl text-white/90 leading-relaxed mb-6 italic">
+                <p className="text-lg md:text-xl text-orange-900/85 leading-relaxed mb-6 italic">
                   "{t.quote}"
                 </p>
                 <div>
-                  <p className="font-bold text-white text-lg">{t.name}</p>
-                  <p className="text-white/50 text-sm">
+                  <p className="font-bold text-orange-950 text-lg">{t.name}</p>
+                  <p className="text-orange-800/60 text-sm">
                     {t.location} ·{" "}
-                    <span className="text-secondary font-medium">{t.program}</span>
+                    <span className="text-orange-600 font-medium">{t.program}</span>
                   </p>
                 </div>
               </div>
             </div>
+            </Motion3DCard>
           </motion.div>
         </AnimatePresence>
 
         <div className="flex items-center justify-center gap-4 mt-8">
           <button
             onClick={() => go(-1)}
-            className="w-11 h-11 rounded-full border border-white/15 bg-white/5 hover:bg-white/15 hover:border-secondary/50 flex items-center justify-center transition-all text-white"
+            className="w-11 h-11 rounded-full border border-orange-200 bg-white hover:bg-orange-50 hover:border-orange-400 flex items-center justify-center transition-all text-orange-900"
             data-testid="button-testimonial-prev"
           >
             <ChevronLeft size={18} />
@@ -190,7 +203,7 @@ export function Testimonials() {
                 key={i}
                 onClick={() => { setDirection(i > current ? 1 : -1); setCurrent(i); }}
                 className={`h-1.5 rounded-full transition-all duration-400 ${
-                  i === current ? "w-8 bg-secondary" : "w-1.5 bg-white/20"
+                  i === current ? "w-8 bg-orange-500" : "w-1.5 bg-orange-200"
                 }`}
                 data-testid={`button-testimonial-dot-${i}`}
               />
@@ -199,7 +212,7 @@ export function Testimonials() {
 
           <button
             onClick={() => go(1)}
-            className="w-11 h-11 rounded-full border border-white/15 bg-white/5 hover:bg-white/15 hover:border-secondary/50 flex items-center justify-center transition-all text-white"
+            className="w-11 h-11 rounded-full border border-orange-200 bg-white hover:bg-orange-50 hover:border-orange-400 flex items-center justify-center transition-all text-orange-900"
             data-testid="button-testimonial-next"
           >
             <ChevronRight size={18} />

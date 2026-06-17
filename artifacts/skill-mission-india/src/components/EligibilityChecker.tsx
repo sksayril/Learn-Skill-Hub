@@ -154,7 +154,7 @@ export function EligibilityChecker() {
   function prev() { setDir(-1); setStep(step - 1); }
 
   return (
-    <section className="py-24 bg-muted/30">
+    <section className="py-24 bg-orange-surface-alt">
       <div className="container mx-auto px-4 md:px-6 max-w-xl">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
