@@ -4,6 +4,8 @@ import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { BookOpen, Globe, Landmark, Factory, HeartHandshake, ArrowUpRight, CheckCircle } from "lucide-react";
+import { EDU_IMAGES } from "@/lib/images";
+import { Motion3DCard } from "@/components/Motion3DCard";
 
 const programs = [
   {
@@ -11,7 +13,7 @@ const programs = [
     title: "Office Automation & Accounting",
     subtitle: "NIELIT Certified Program",
     category: "NIELIT",
-    image: "https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?w=800&q=80&auto=format&fit=crop",
+    image: EDU_IMAGES.programs.officeAutomation,
     gradient: "from-blue-900/90 via-blue-800/70 to-transparent",
     accent: "#00C2FF",
     accentBg: "bg-blue-500/20",
@@ -26,7 +28,7 @@ const programs = [
     title: "UNICEF E-Placement",
     subtitle: "Pan-India Digital Employment",
     category: "UNICEF",
-    image: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=800&q=80&auto=format&fit=crop",
+    image: EDU_IMAGES.programs.unicef,
     gradient: "from-cyan-900/90 via-cyan-800/70 to-transparent",
     accent: "#00E5A8",
     accentBg: "bg-cyan-500/20",
@@ -41,7 +43,7 @@ const programs = [
     title: "PM VIKAS",
     subtitle: "PM Vishwakarma Scheme",
     category: "Government",
-    image: "https://images.unsplash.com/photo-1540569014015-19a7be504e3a?w=800&q=80&auto=format&fit=crop",
+    image: EDU_IMAGES.programs.pmVikas,
     gradient: "from-amber-900/90 via-amber-800/70 to-transparent",
     accent: "#F59E0B",
     accentBg: "bg-amber-500/20",
@@ -56,7 +58,7 @@ const programs = [
     title: "MSME Skill Development",
     subtitle: "Ministry of MSME",
     category: "MSME",
-    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80&auto=format&fit=crop",
+    image: EDU_IMAGES.programs.msme,
     gradient: "from-emerald-900/90 via-emerald-800/70 to-transparent",
     accent: "#00E5A8",
     accentBg: "bg-emerald-500/20",
@@ -71,7 +73,7 @@ const programs = [
     title: "CSR Skill Programs",
     subtitle: "IBM · Infosys · Tech Mahindra",
     category: "Corporate CSR",
-    image: "https://images.unsplash.com/photo-1542744094-3a31f272c490?w=800&q=80&auto=format&fit=crop",
+    image: EDU_IMAGES.programs.csr,
     gradient: "from-purple-900/90 via-purple-800/70 to-transparent",
     accent: "#A78BFA",
     accentBg: "bg-purple-500/20",
@@ -99,7 +101,7 @@ export function Programs() {
   const [hovered, setHovered] = useState<number | null>(null);
 
   return (
-    <section id="programs" className="py-28 bg-[#060E1E] relative overflow-hidden" ref={ref}>
+    <section id="our-program" className="py-28 bg-orange-surface-alt relative overflow-hidden" ref={ref}>
       {/* Background decoration */}
       <div className="absolute inset-0 opacity-30 pointer-events-none"
         style={{
@@ -114,13 +116,13 @@ export function Programs() {
           transition={{ duration: 0.6 }}
           className="text-center mb-20"
         >
-          <span className="inline-block px-4 py-2 rounded-full bg-secondary/15 text-secondary border border-secondary/25 text-xs font-bold tracking-[0.2em] uppercase mb-5">
+          <span className="inline-block px-4 py-2 rounded-full bg-orange-500/15 text-orange-700 border border-orange-300 text-xs font-bold tracking-[0.2em] uppercase mb-5">
             Govt. & CSR Programs
           </span>
-          <h2 className="text-4xl md:text-6xl font-black text-white mb-5 leading-tight">
-            Choose Your Program
+          <h2 className="text-4xl md:text-6xl font-black text-orange-950 mb-5 leading-tight">
+            Our Programs
           </h2>
-          <p className="text-white/50 text-lg max-w-2xl mx-auto">
+          <p className="text-orange-900/60 text-lg max-w-2xl mx-auto">
             Government-approved, industry-recognized training — fully funded for eligible candidates.
           </p>
         </motion.div>
@@ -135,24 +137,24 @@ export function Programs() {
             const Icon = program.icon;
             const isHovered = hovered === i;
             return (
-              <motion.div
-                key={i}
-                variants={cardVariants}
+              <motion.div key={i} variants={cardVariants} className="h-full">
+              <Motion3DCard
+                tilt={16}
+                hoverScale={1.03}
+                lift={12}
+                innerClassName="relative group rounded-2xl overflow-hidden cursor-pointer border border-white/10 hover:border-white/25 h-full min-h-[380px]"
                 onMouseEnter={() => setHovered(i)}
                 onMouseLeave={() => setHovered(null)}
-                className="relative group rounded-2xl overflow-hidden cursor-pointer border border-white/10 hover:border-white/25 transition-all duration-500"
                 style={{
-                  transform: isHovered ? "translateY(-8px) scale(1.01)" : "translateY(0) scale(1)",
-                  transition: "transform 0.4s cubic-bezier(0.22,1,0.36,1), box-shadow 0.4s ease",
-                  boxShadow: isHovered ? `0 30px 60px -15px ${program.accent}30` : "0 4px 20px rgba(0,0,0,0.3)",
+                  boxShadow: isHovered ? `0 30px 60px -15px ${program.accent}40` : "0 4px 20px rgba(0,0,0,0.25)",
                 }}
                 data-testid={`card-program-${i}`}
               >
                 {/* Background image */}
                 <div className="absolute inset-0">
                   <img
-                    src={program.image}
-                    alt={program.title}
+                    src={program.image.src}
+                    alt={program.image.alt}
                     className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110"
                   />
                   {/* Gradient overlays */}
@@ -171,6 +173,10 @@ export function Programs() {
                       {program.category}
                     </span>
                   </div>
+
+                  <p className="text-[10px] font-semibold uppercase tracking-wider text-white/40 mb-1">
+                    {program.image.topic}
+                  </p>
 
                   {/* Bottom content */}
                   <div className="mt-auto pt-20">
@@ -217,6 +223,7 @@ export function Programs() {
                     </Button>
                   </div>
                 </div>
+              </Motion3DCard>
               </motion.div>
             );
           })}

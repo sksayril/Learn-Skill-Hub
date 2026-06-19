@@ -4,12 +4,12 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { NAV_ITEMS } from "@/lib/navigation";
 const logoImg = "/logo.jpeg";
 
 const links = {
   Programs: ["Office Automation", "UNICEF E-Placement", "PM VIKAS", "MSME Skills", "CSR Programs"],
   Resources: ["Student Portal", "Training Centre Login", "Certification Verify", "Career Guidance", "Downloads"],
-  Company: ["About Us", "Our Partners", "Press & Media", "Careers", "Contact Us"],
 };
 
 const socialLinks = [
@@ -24,7 +24,7 @@ export function Footer() {
   const [subscribed, setSubscribed] = useState(false);
 
   return (
-    <footer className="bg-card border-t border-border pt-16 pb-8">
+    <footer className="bg-orange-surface-warm border-t border-orange-200 pt-16 pb-8">
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
           <div className="lg:col-span-2">
@@ -87,6 +87,23 @@ export function Footer() {
             </div>
           </div>
 
+          <div>
+            <h4 className="text-xs font-bold uppercase tracking-widest text-foreground mb-4">Navigation</h4>
+            <ul className="space-y-2.5">
+              {NAV_ITEMS.map((item) => (
+                <li key={item.href}>
+                  <a
+                    href={item.href}
+                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                    data-testid={`link-footer-${item.label.replace(/\s+/g, "-").toLowerCase()}`}
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
           {Object.entries(links).map(([section, items]) => (
             <div key={section}>
               <h4 className="text-xs font-bold uppercase tracking-widest text-foreground mb-4">{section}</h4>
@@ -94,7 +111,7 @@ export function Footer() {
                 {items.map((item) => (
                   <li key={item}>
                     <a
-                      href="#"
+                      href="#our-program"
                       className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                       data-testid={`link-footer-${item.replace(/\s+/g, "-").toLowerCase()}`}
                     >
