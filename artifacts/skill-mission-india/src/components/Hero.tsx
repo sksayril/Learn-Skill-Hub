@@ -117,6 +117,12 @@ export function Hero() {
                 size="lg"
                 className="btn-orange text-base px-8 py-6 rounded-2xl hover:-translate-y-1"
                 data-testid="button-hero-apply"
+                onClick={() => {
+                  const element = document.getElementById("apply");
+                  if (element) {
+                    element.scrollIntoView({ behavior: "smooth" });
+                  }
+                }}
               >
                 Apply Now — It's Free
               </Button>

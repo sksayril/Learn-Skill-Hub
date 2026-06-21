@@ -1,7 +1,7 @@
 "use client"
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Upload, CheckCircle2, ArrowRight, ArrowLeft } from "lucide-react";
 
@@ -36,6 +36,25 @@ export function ApplicationForm() {
   const [dir, setDir] = useState(1);
   const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState<FormData>(initialForm);
+
+  useEffect(() => {
+    const handleSelectProgram = (e: Event) => {
+      const customEvent = e as CustomEvent<string>;
+      const programTitle = customEvent.detail;
+      
+      const matched = PROGRAMS.find(
+        (p) =>
+          p.toLowerCase().replace(/s$/, "").trim() ===
+          programTitle.toLowerCase().replace(/s$/, "").trim()
+      );
+      
+      setForm((prev) => ({ ...prev, program: matched || programTitle }));
+      setSubmitted(false);
+      setStep(0);
+    };
+    window.addEventListener("select-program", handleSelectProgram);
+    return () => window.removeEventListener("select-program", handleSelectProgram);
+  }, []);
 
   const steps = [
     {
@@ -165,9 +184,30 @@ export function ApplicationForm() {
     },
   ];
 
-  function goNext() {
-    if (step < steps.length - 1) { setDir(1); setStep(step + 1); }
-    else setSubmitted(true);
+  async function goNext() {
+    if (step < steps.length - 1) {
+      setDir(1);
+      setStep(step + 1);
+    } else {
+      try {
+        const response = await fetch("/api/enquiries", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(form),
+        });
+        if (response.ok) {
+          setSubmitted(true);
+        } else {
+          console.error("Failed to submit application");
+          setSubmitted(true);
+        }
+      } catch (error) {
+        console.error("Error submitting application:", error);
+        setSubmitted(true);
+      }
+    }
   }
 
   return (

@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
-import { Mail, Phone, MapPin, Send, Clock } from "lucide-react";
+import { Mail, MapPin, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { EDU_IMAGES } from "@/lib/images";
 import { Motion3DCard } from "@/components/Motion3DCard";
@@ -15,21 +15,9 @@ const contactInfo = [
     href: "mailto:info@skillmissionindia.gov.in",
   },
   {
-    icon: Phone,
-    label: "Toll Free",
-    value: "1800-XXX-XXXX",
-    href: "tel:+911800XXXXXXX",
-  },
-  {
     icon: MapPin,
     label: "Address",
     value: "Ministry of Skill Development, New Delhi - 110001",
-    href: null,
-  },
-  {
-    icon: Clock,
-    label: "Office Hours",
-    value: "Mon – Fri, 9:00 AM – 6:00 PM IST",
     href: null,
   },
 ];
@@ -40,10 +28,27 @@ export function ContactUs() {
   const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (form.name && form.email && form.message) {
-      setSubmitted(true);
+      try {
+        const response = await fetch("/api/contacts", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(form),
+        });
+        if (response.ok) {
+          setSubmitted(true);
+        } else {
+          console.error("Failed to submit contact enquiry");
+          setSubmitted(true);
+        }
+      } catch (error) {
+        console.error("Error submitting contact enquiry:", error);
+        setSubmitted(true);
+      }
     }
   };
 
@@ -74,11 +79,11 @@ export function ContactUs() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="space-y-4"
           >
-            <Motion3DCard tilt={6} hoverScale={1.02} lift={4} innerClassName="rounded-2xl overflow-hidden border border-orange-200 shadow-lg mb-6">
+            <Motion3DCard tilt={6} hoverScale={1.02} lift={4} className="!h-auto" innerClassName="rounded-2xl overflow-hidden border border-orange-200 shadow-lg mb-6 !h-auto">
               <img
                 src={EDU_IMAGES.contact.src}
                 alt={EDU_IMAGES.contact.alt}
-                className="w-full h-48 object-cover"
+                className="w-full h-64 object-cover"
               />
             </Motion3DCard>
 

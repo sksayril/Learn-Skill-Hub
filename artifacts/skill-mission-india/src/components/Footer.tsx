@@ -29,48 +29,23 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
           <div className="lg:col-span-2">
             {/* Logo + name */}
-            <div className="flex items-center gap-3 mb-5">
+            <div className="flex items-center gap-4 mb-6">
               <img
                 src={logoImg}
                 alt="Skill Mission India Logo"
-                className="w-14 h-14 object-contain rounded-full border-2 border-border shadow-lg flex-shrink-0"
+                className="w-20 h-20 object-contain rounded-full border-2 border-orange-200 shadow-lg shadow-orange-100/50 flex-shrink-0"
               />
               <div className="flex flex-col leading-tight">
-                <span className="font-black text-lg text-foreground tracking-tight">
+                <span className="font-black text-2xl text-foreground tracking-tight">
                   Skill Mission India
                 </span>
-                <span className="text-[10px] font-semibold tracking-widest uppercase text-muted-foreground">
+                <span className="text-xs font-bold tracking-widest uppercase text-orange-800/70">
                   Health · Education · Agriculture
                 </span>
               </div>
             </div>
 
-            <p className="text-muted-foreground text-sm leading-relaxed mb-6 max-w-xs">
-              A Government of India initiative connecting youth with skills, employment and entrepreneurship through industry and CSR partnerships.
-            </p>
 
-            <div className="space-y-3 mb-6">
-              <a
-                href="mailto:info@skillmissionindia.gov.in"
-                className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
-                data-testid="link-email"
-              >
-                <Mail size={14} className="text-secondary" />
-                info@skillmissionindia.gov.in
-              </a>
-              <a
-                href="tel:+911800XXXXXXX"
-                className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
-                data-testid="link-phone"
-              >
-                <Phone size={14} className="text-secondary" />
-                1800-XXX-XXXX (Toll Free)
-              </a>
-              <div className="flex items-start gap-2 text-sm text-muted-foreground">
-                <MapPin size={14} className="text-secondary mt-0.5 flex-shrink-0" />
-                Ministry of Skill Development, New Delhi - 110001
-              </div>
-            </div>
 
             <div className="flex gap-3">
               {socialLinks.map((s) => (

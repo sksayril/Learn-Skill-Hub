@@ -100,6 +100,15 @@ export function Programs() {
   const inView = useInView(ref, { once: true, margin: "-60px" });
   const [hovered, setHovered] = useState<number | null>(null);
 
+  const handleApply = (programTitle: string) => {
+    const event = new CustomEvent("select-program", { detail: programTitle });
+    window.dispatchEvent(event);
+    const element = document.getElementById("apply");
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <section id="our-program" className="py-28 bg-orange-surface-alt relative overflow-hidden" ref={ref}>
       {/* Background decoration */}
@@ -217,6 +226,7 @@ export function Programs() {
                         border: `1px solid ${isHovered ? program.accent : "rgba(255,255,255,0.2)"}`,
                       }}
                       data-testid={`button-apply-program-${i}`}
+                      onClick={() => handleApply(program.title)}
                     >
                       Apply for This Program
                       <ArrowUpRight size={14} className="ml-1.5 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
