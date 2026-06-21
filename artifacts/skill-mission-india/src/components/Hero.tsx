@@ -112,7 +112,7 @@ export function Hero() {
               with skills, jobs and entrepreneurship opportunities nationwide.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 mb-16">
+            <div className="flex flex-col sm:flex-row gap-4 mb-16 flex-wrap">
               <Button
                 size="lg"
                 className="btn-orange text-base px-8 py-6 rounded-2xl hover:-translate-y-1"
@@ -125,6 +125,20 @@ export function Hero() {
                 }}
               >
                 Apply Now — It's Free
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-orange-300 bg-white/70 backdrop-blur-sm text-orange-900 hover:bg-orange-50 hover:border-orange-400 font-semibold text-base px-8 py-6 rounded-2xl transition-all hover:-translate-y-1"
+                data-testid="button-hero-download"
+                asChild
+              >
+                <a href="/smiv1.apk" download>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="mr-2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
+                  </svg>
+                  Download App
+                </a>
               </Button>
               <Button
                 size="lg"

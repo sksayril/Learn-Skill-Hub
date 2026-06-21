@@ -177,6 +177,13 @@ export function EligibilityChecker() {
   }
   function prev() { setDir(-1); setStep(step - 1); }
 
+  const isStepValid = () => {
+    if (step === 0) return form.name.trim() !== "" && /^\d{10}$/.test(form.mobile) && form.gender !== "";
+    if (step === 1) return form.category !== "" && form.qualification !== "" && form.district !== "";
+    if (step === 2) return form.program !== "";
+    return true;
+  };
+
   return (
     <section className="py-24 bg-orange-surface-alt">
       <div className="container mx-auto px-4 md:px-6 max-w-xl">
@@ -246,7 +253,8 @@ export function EligibilityChecker() {
                 )}
                 <Button
                   onClick={next}
-                  className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground"
+                  disabled={!isStepValid()}
+                  className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground disabled:opacity-50"
                   data-testid="button-eligibility-next"
                 >
                   {step < steps.length - 1 ? "Continue" : "Check Eligibility"}

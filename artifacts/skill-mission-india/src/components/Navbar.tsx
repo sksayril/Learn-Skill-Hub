@@ -80,6 +80,19 @@ export function Navbar() {
 
           <Button
             asChild
+            variant="outline"
+            className="hidden md:flex rounded-xl shadow-sm border-orange-200 text-orange-950 hover:bg-orange-50 hover:text-orange-900"
+          >
+            <a href="/smiv1.apk" download>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="mr-2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
+              </svg>
+              Download App
+            </a>
+          </Button>
+
+          <Button
+            asChild
             className="hidden md:flex btn-orange rounded-xl shadow-orange-500/30 hover:-translate-y-0.5"
           >
             <a href="#apply">Apply Now</a>
@@ -115,6 +128,18 @@ export function Navbar() {
                     className="mt-4 px-4 py-3 rounded-xl text-center text-base font-bold btn-orange"
                   >
                     Apply Now
+                  </a>
+                </SheetClose>
+                <SheetClose asChild>
+                  <a
+                    href="/smiv1.apk"
+                    download
+                    className="mt-2 flex items-center justify-center px-4 py-3 rounded-xl text-center text-base font-bold border border-orange-200 text-orange-950 hover:bg-orange-50"
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="mr-2">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
+                    </svg>
+                    Download App
                   </a>
                 </SheetClose>
               </nav>
