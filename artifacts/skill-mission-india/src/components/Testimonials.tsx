@@ -124,6 +124,7 @@ export function Testimonials() {
                 i === current ? "border-orange-500 scale-110 shadow-[0_0_20px_rgba(249,115,22,0.4)]" : "border-orange-200 opacity-60 hover:opacity-90"
               }`}
               data-testid={`button-testimonial-avatar-${i}`}
+              suppressHydrationWarning
             >
               <img src={t2.avatar} alt={t2.avatarAlt} className="w-full h-full object-cover" />
             </button>
@@ -193,6 +194,7 @@ export function Testimonials() {
             onClick={() => go(-1)}
             className="w-11 h-11 rounded-full border border-orange-200 bg-white hover:bg-orange-50 hover:border-orange-400 flex items-center justify-center transition-all text-orange-900"
             data-testid="button-testimonial-prev"
+            suppressHydrationWarning
           >
             <ChevronLeft size={18} />
           </button>
@@ -206,6 +208,7 @@ export function Testimonials() {
                   i === current ? "w-8 bg-orange-500" : "w-1.5 bg-orange-200"
                 }`}
                 data-testid={`button-testimonial-dot-${i}`}
+                suppressHydrationWarning
               />
             ))}
           </div>
@@ -214,6 +217,7 @@ export function Testimonials() {
             onClick={() => go(1)}
             className="w-11 h-11 rounded-full border border-orange-200 bg-white hover:bg-orange-50 hover:border-orange-400 flex items-center justify-center transition-all text-orange-900"
             data-testid="button-testimonial-next"
+            suppressHydrationWarning
           >
             <ChevronRight size={18} />
           </button>

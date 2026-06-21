@@ -53,10 +53,10 @@ export function AboutUs() {
             Who We Are
           </span>
           <h2 className="text-4xl md:text-5xl font-black text-foreground mb-5 leading-tight">
-            About Skill Mission India
+            About Support Mission India
           </h2>
           <p className="text-muted-foreground text-lg max-w-3xl mx-auto leading-relaxed">
-            Skill Mission India is a Government of India initiative dedicated to bridging the gap between
+            Support Mission India is a Government of India initiative dedicated to bridging the gap between
             education and employment. We partner with ministries, CSR corporates, and accredited training
             providers to deliver free, certified skill development programs nationwide.
           </p>

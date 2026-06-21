@@ -131,6 +131,7 @@ export function Hero() {
                 variant="outline"
                 className="border-orange-300 bg-white/70 backdrop-blur-sm text-orange-900 hover:bg-orange-50 hover:border-orange-400 font-semibold text-base px-8 py-6 rounded-2xl transition-all hover:-translate-y-1"
                 data-testid="button-hero-partner"
+                onClick={() => window.open("https://app.smi.in.net/agent/login", "_blank")}
               >
                 Become Training Partner
               </Button>

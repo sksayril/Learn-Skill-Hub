@@ -54,6 +54,7 @@ function FAQItem({ q, a, i }: { q: string; a: string; i: number }) {
         onClick={() => setOpen(!open)}
         className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left bg-card hover:bg-muted/50 transition-colors"
         data-testid={`button-faq-${i}`}
+        suppressHydrationWarning
       >
         <span className="font-semibold text-foreground text-sm md:text-base">{q}</span>
         <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300 ${
@@ -100,7 +101,7 @@ export function FAQ() {
             Got Questions?
           </h2>
           <p className="text-muted-foreground text-lg">
-            Everything you need to know about Skill Mission India and our programs.
+            Everything you need to know about Support Mission India and our programs.
           </p>
         </motion.div>
 

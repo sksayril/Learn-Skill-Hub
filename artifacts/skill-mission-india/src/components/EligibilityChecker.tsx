@@ -1,16 +1,16 @@
 "use client"
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, ChevronRight, ChevronLeft } from "lucide-react";
 
-const PROGRAMS = [
+const DEFAULT_PROGRAMS = [
   "Office Automation & Accounting",
   "UNICEF E-Placement",
   "PM VIKAS",
   "MSME Skill Development",
-  "CSR Skill Program",
+  "CSR Skill Programs",
 ];
 
 const DISTRICTS = [
@@ -23,11 +23,28 @@ export function EligibilityChecker() {
   const [step, setStep] = useState(0);
   const [dir, setDir] = useState(1);
   const [done, setDone] = useState(false);
+  const [programs, setPrograms] = useState<string[]>(DEFAULT_PROGRAMS);
   const [form, setForm] = useState({
     name: "", mobile: "", gender: "",
     category: "", qualification: "", district: "",
     program: "",
   });
+
+  useEffect(() => {
+    const fetchProgramsList = async () => {
+      try {
+        const res = await fetch("/api/courses");
+        const json = await res.json();
+        if (json.success) {
+          const titles = json.data.map((c: any) => c.title || c.name);
+          setPrograms(titles);
+        }
+      } catch (error) {
+        console.error("Failed to fetch programs:", error);
+      }
+    };
+    fetchProgramsList();
+  }, []);
 
   const steps = [
     {
@@ -42,6 +59,7 @@ export function EligibilityChecker() {
               onChange={(e) => setForm({ ...form, name: e.target.value })}
               className="peer w-full px-4 py-3 rounded-xl border border-border bg-background text-foreground text-sm focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all"
               data-testid="input-name"
+              suppressHydrationWarning
             />
             <label className="absolute left-4 top-3 text-muted-foreground text-sm transition-all peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-secondary peer-[:not(:placeholder-shown)]:-top-2.5 peer-[:not(:placeholder-shown)]:text-xs bg-background px-1">
               Full Name
@@ -55,6 +73,7 @@ export function EligibilityChecker() {
               onChange={(e) => setForm({ ...form, mobile: e.target.value })}
               className="peer w-full px-4 py-3 rounded-xl border border-border bg-background text-foreground text-sm focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all"
               data-testid="input-mobile"
+              suppressHydrationWarning
             />
             <label className="absolute left-4 top-3 text-muted-foreground text-sm transition-all peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-secondary peer-[:not(:placeholder-shown)]:-top-2.5 peer-[:not(:placeholder-shown)]:text-xs bg-background px-1">
               Mobile Number
@@ -71,6 +90,7 @@ export function EligibilityChecker() {
                     : "border-border bg-background text-muted-foreground hover:border-secondary/50"
                 }`}
                 data-testid={`button-gender-${g.toLowerCase()}`}
+                suppressHydrationWarning
               >
                 {g}
               </button>
@@ -88,6 +108,7 @@ export function EligibilityChecker() {
             onChange={(e) => setForm({ ...form, category: e.target.value })}
             className="w-full px-4 py-3 rounded-xl border border-border bg-background text-sm text-foreground focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all"
             data-testid="select-category"
+            suppressHydrationWarning
           >
             <option value="">Select Category</option>
             <option>General</option>
@@ -101,6 +122,7 @@ export function EligibilityChecker() {
             onChange={(e) => setForm({ ...form, qualification: e.target.value })}
             className="w-full px-4 py-3 rounded-xl border border-border bg-background text-sm text-foreground focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all"
             data-testid="select-qualification"
+            suppressHydrationWarning
           >
             <option value="">Highest Qualification</option>
             <option>Below 10th</option>
@@ -114,6 +136,7 @@ export function EligibilityChecker() {
             onChange={(e) => setForm({ ...form, district: e.target.value })}
             className="w-full px-4 py-3 rounded-xl border border-border bg-background text-sm text-foreground focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all"
             data-testid="select-district"
+            suppressHydrationWarning
           >
             <option value="">Select District</option>
             {DISTRICTS.map((d) => <option key={d}>{d}</option>)}
@@ -125,7 +148,7 @@ export function EligibilityChecker() {
       title: "Choose Your Program",
       fields: (
         <div className="space-y-3">
-          {PROGRAMS.map((p) => (
+          {programs.map((p) => (
             <button
               key={p}
               onClick={() => setForm({ ...form, program: p })}
@@ -135,6 +158,7 @@ export function EligibilityChecker() {
                   : "border-border bg-background text-foreground hover:border-accent/40"
               }`}
               data-testid={`button-program-${p.replace(/\s+/g, "-").toLowerCase()}`}
+              suppressHydrationWarning
             >
               <span className={`inline-block w-4 h-4 rounded-full border mr-3 transition-all ${
                 form.program === p ? "bg-accent border-accent" : "border-border"

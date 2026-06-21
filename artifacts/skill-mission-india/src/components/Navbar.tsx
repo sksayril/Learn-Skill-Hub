@@ -40,14 +40,14 @@ export function Navbar() {
         <a href="#home" className="flex items-center gap-3.5">
           <img
             src={logoImg}
-            alt="Skill Mission India Logo"
+            alt="Support Mission India Logo"
             className={`object-contain rounded-full border-2 border-orange-200 shadow-lg transition-all duration-300 ${
               scrolled ? "w-12 h-12" : "w-16 h-16"
             }`}
           />
           <div className="flex flex-col leading-tight">
             <span className="font-black text-xl tracking-tight text-orange-950">
-              Skill Mission India
+              Support Mission India
             </span>
             <span className="text-[11px] font-bold tracking-widest uppercase text-orange-800/70 hidden md:block">
               Health · Education · Agriculture

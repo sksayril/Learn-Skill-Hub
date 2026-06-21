@@ -32,12 +32,12 @@ export function Footer() {
             <div className="flex items-center gap-4 mb-6">
               <img
                 src={logoImg}
-                alt="Skill Mission India Logo"
+                alt="Support Mission India Logo"
                 className="w-20 h-20 object-contain rounded-full border-2 border-orange-200 shadow-lg shadow-orange-100/50 flex-shrink-0"
               />
               <div className="flex flex-col leading-tight">
                 <span className="font-black text-2xl text-foreground tracking-tight">
-                  Skill Mission India
+                  Support Mission India
                 </span>
                 <span className="text-xs font-bold tracking-widest uppercase text-orange-800/70">
                   Health · Education · Agriculture
@@ -115,6 +115,7 @@ export function Footer() {
                   onChange={(e) => setEmail(e.target.value)}
                   className="flex-1 md:w-64 px-4 py-2.5 rounded-xl border border-border bg-background text-foreground text-sm focus:outline-none focus:border-secondary transition-all"
                   data-testid="input-newsletter"
+                  suppressHydrationWarning
                 />
                 <Button
                   onClick={() => { if (email) setSubscribed(true); }}
@@ -143,7 +144,7 @@ export function Footer() {
           <div className="flex items-center gap-2">
             <img src={logoImg} alt="" className="w-6 h-6 object-contain rounded-full opacity-60" />
             <p className="text-xs text-muted-foreground">
-              © 2025 Skill Mission India. Government of India. All rights reserved.
+              © 2025 Support Mission India. Government of India. All rights reserved.
             </p>
           </div>
           <div className="flex gap-5 text-xs text-muted-foreground">

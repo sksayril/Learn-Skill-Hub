@@ -142,6 +142,7 @@ export function ContactUs() {
                     onChange={(e) => setForm({ ...form, name: e.target.value })}
                     className="w-full px-4 py-2.5 rounded-xl border border-border bg-background text-foreground text-sm focus:outline-none focus:border-secondary transition-all"
                     data-testid="input-contact-name"
+                    suppressHydrationWarning
                   />
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -157,6 +158,7 @@ export function ContactUs() {
                       onChange={(e) => setForm({ ...form, email: e.target.value })}
                       className="w-full px-4 py-2.5 rounded-xl border border-border bg-background text-foreground text-sm focus:outline-none focus:border-secondary transition-all"
                       data-testid="input-contact-email"
+                      suppressHydrationWarning
                     />
                   </div>
                   <div>
@@ -170,6 +172,7 @@ export function ContactUs() {
                       onChange={(e) => setForm({ ...form, phone: e.target.value })}
                       className="w-full px-4 py-2.5 rounded-xl border border-border bg-background text-foreground text-sm focus:outline-none focus:border-secondary transition-all"
                       data-testid="input-contact-phone"
+                      suppressHydrationWarning
                     />
                   </div>
                 </div>
@@ -185,6 +188,7 @@ export function ContactUs() {
                     onChange={(e) => setForm({ ...form, message: e.target.value })}
                     className="w-full px-4 py-2.5 rounded-xl border border-border bg-background text-foreground text-sm focus:outline-none focus:border-secondary transition-all resize-none"
                     data-testid="input-contact-message"
+                    suppressHydrationWarning
                   />
                 </div>
                 <Button

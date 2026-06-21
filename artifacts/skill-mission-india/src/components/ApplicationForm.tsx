@@ -5,12 +5,12 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Upload, CheckCircle2, ArrowRight, ArrowLeft } from "lucide-react";
 
-const PROGRAMS = [
+const DEFAULT_PROGRAMS = [
   "Office Automation & Accounting",
   "UNICEF E-Placement",
   "PM VIKAS",
   "MSME Skill Development",
-  "CSR Skill Program",
+  "CSR Skill Programs",
 ];
 
 type FormData = {
@@ -36,13 +36,30 @@ export function ApplicationForm() {
   const [dir, setDir] = useState(1);
   const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState<FormData>(initialForm);
+  const [programs, setPrograms] = useState<string[]>(DEFAULT_PROGRAMS);
+
+  useEffect(() => {
+    const fetchProgramsList = async () => {
+      try {
+        const res = await fetch("/api/courses");
+        const json = await res.json();
+        if (json.success) {
+          const titles = json.data.map((c: any) => c.title || c.name);
+          setPrograms(titles);
+        }
+      } catch (error) {
+        console.error("Failed to fetch programs:", error);
+      }
+    };
+    fetchProgramsList();
+  }, []);
 
   useEffect(() => {
     const handleSelectProgram = (e: Event) => {
       const customEvent = e as CustomEvent<string>;
       const programTitle = customEvent.detail;
       
-      const matched = PROGRAMS.find(
+      const matched = programs.find(
         (p) =>
           p.toLowerCase().replace(/s$/, "").trim() ===
           programTitle.toLowerCase().replace(/s$/, "").trim()
@@ -54,7 +71,7 @@ export function ApplicationForm() {
     };
     window.addEventListener("select-program", handleSelectProgram);
     return () => window.removeEventListener("select-program", handleSelectProgram);
-  }, []);
+  }, [programs]);
 
   const steps = [
     {
@@ -77,6 +94,7 @@ export function ApplicationForm() {
                   onChange={(e) => setForm({ ...form, [key]: e.target.value })}
                   className="w-full px-4 py-3 rounded-xl border border-border bg-background text-foreground text-sm focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all"
                   data-testid={`input-${key}`}
+                  suppressHydrationWarning
                 />
               </div>
             ))}
@@ -96,6 +114,7 @@ export function ApplicationForm() {
                       : "border-border bg-background text-muted-foreground hover:border-secondary/50"
                   }`}
                   data-testid={`button-gender-${g.toLowerCase()}`}
+                  suppressHydrationWarning
                 >
                   {g}
                 </button>
@@ -123,6 +142,7 @@ export function ApplicationForm() {
                 onChange={(e) => setForm({ ...form, [key]: e.target.value })}
                 className="w-full px-4 py-3 rounded-xl border border-border bg-background text-foreground text-sm focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all"
                 data-testid={`select-${key}`}
+                suppressHydrationWarning
               >
                 <option value="">Select {label}</option>
                 {options.map((o) => <option key={o}>{o}</option>)}
@@ -141,7 +161,7 @@ export function ApplicationForm() {
               Select Program
             </label>
             <div className="space-y-2">
-              {PROGRAMS.map((p) => (
+              {programs.map((p) => (
                 <button
                   key={p}
                   onClick={() => setForm({ ...form, program: p })}
@@ -151,6 +171,7 @@ export function ApplicationForm() {
                       : "border-border bg-background text-foreground hover:border-accent/40"
                   }`}
                   data-testid={`button-program-${p.replace(/\s+/g, "-").toLowerCase()}`}
+                  suppressHydrationWarning
                 >
                   <span className={`inline-block w-3.5 h-3.5 rounded-full border mr-3 transition-all ${
                     form.program === p ? "bg-accent border-accent" : "border-muted-foreground"
@@ -171,7 +192,7 @@ export function ApplicationForm() {
               <Upload className="text-muted-foreground mb-2" size={24} />
               <span className="text-sm text-muted-foreground">Click to upload or drag & drop</span>
               <span className="text-xs text-muted-foreground/60 mt-1">PDF, JPG, PNG up to 5MB</span>
-              <input type="file" className="hidden" onChange={(e) => setForm({ ...form, document: e.target.files?.[0]?.name || "" })} />
+              <input type="file" className="hidden" suppressHydrationWarning onChange={(e) => setForm({ ...form, document: e.target.files?.[0]?.name || "" })} />
             </label>
             {form.document && (
               <p className="text-xs text-accent mt-1 flex items-center gap-1">

@@ -66,6 +66,7 @@ export function TrainingPartner() {
               size="lg"
               className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-[0_0_25px_-5px_hsl(var(--primary))] hover:shadow-[0_0_35px_-5px_hsl(var(--primary))] transition-all hover:-translate-y-1"
               data-testid="button-register-partner"
+              onClick={() => window.open("https://app.smi.in.net/agent/login", "_blank")}
             >
               Register as Training Partner
               <ArrowRight size={16} className="ml-2" />
