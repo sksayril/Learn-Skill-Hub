@@ -205,8 +205,22 @@ export function ApplicationForm() {
     },
   ];
 
+  const isStepValid = () => {
+    if (step === 0) {
+      return form.name.trim() !== "" && form.mobile.trim() !== "" && form.email.trim() !== "" && form.gender !== "";
+    }
+    if (step === 1) {
+      return form.category !== "" && form.qualification !== "" && form.district !== "";
+    }
+    if (step === 2) {
+      return form.program !== "";
+    }
+    return true;
+  };
+
   async function goNext() {
     if (step < steps.length - 1) {
+      if (!isStepValid()) return;
       setDir(1);
       setStep(step + 1);
     } else {
@@ -303,7 +317,8 @@ export function ApplicationForm() {
                   )}
                   <Button
                     onClick={goNext}
-                    className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground shadow-[0_0_20px_-5px_hsl(var(--primary))]"
+                    disabled={!isStepValid()}
+                    className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground shadow-[0_0_20px_-5px_hsl(var(--primary))] disabled:opacity-50 disabled:cursor-not-allowed"
                     data-testid="button-form-next"
                   >
                     {step < steps.length - 1 ? "Next Step" : "Submit Application"}

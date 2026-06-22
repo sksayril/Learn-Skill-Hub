@@ -6,13 +6,16 @@ import { Moon, Sun, Menu } from "lucide-react";
 import { useTheme } from "./theme-provider";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { NAV_ITEMS } from "@/lib/navigation";
+import { User, ShieldCheck } from "lucide-react";
 
 const logoImg = "/logo.jpeg";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [loginOpen, setLoginOpen] = useState(false);
   const { theme, setTheme } = useTheme();
 
   useEffect(() => {
@@ -92,10 +95,10 @@ export function Navbar() {
           </Button>
 
           <Button
-            asChild
-            className="hidden md:flex btn-orange rounded-xl shadow-orange-500/30 hover:-translate-y-0.5"
+            onClick={() => setLoginOpen(true)}
+            className="hidden md:flex btn-orange rounded-xl shadow-orange-500/30 hover:-translate-y-0.5 cursor-pointer"
           >
-            <a href="#apply">Apply Now</a>
+            Apply Now
           </Button>
 
           <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
@@ -122,14 +125,12 @@ export function Navbar() {
                     </a>
                   </SheetClose>
                 ))}
-                <SheetClose asChild>
-                  <a
-                    href="#apply"
-                    className="mt-4 px-4 py-3 rounded-xl text-center text-base font-bold btn-orange"
+                  <button
+                    onClick={() => { setLoginOpen(true); setMobileOpen(false); }}
+                    className="mt-4 px-4 py-3 rounded-xl text-center text-base font-bold btn-orange w-full block"
                   >
                     Apply Now
-                  </a>
-                </SheetClose>
+                  </button>
                 <SheetClose asChild>
                   <a
                     href="/smiv1.apk"
@@ -147,6 +148,47 @@ export function Navbar() {
           </Sheet>
         </div>
       </div>
+
+      <Dialog open={loginOpen} onOpenChange={setLoginOpen}>
+        <DialogContent className="sm:max-w-md bg-orange-surface border-orange-200">
+          <DialogHeader>
+            <DialogTitle className="text-center text-xl font-black text-orange-950 mb-4">
+              Select Login Type
+            </DialogTitle>
+          </DialogHeader>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <a
+              href="https://app.smi.in.net/login"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-col items-center gap-3 p-6 rounded-2xl bg-white border border-orange-100 shadow-sm hover:shadow-md hover:border-orange-300 transition-all text-center group"
+            >
+              <div className="w-12 h-12 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <User size={24} />
+              </div>
+              <div>
+                <h3 className="font-bold text-orange-950">Student Login</h3>
+                <p className="text-xs text-orange-900/60 mt-1">Access your learning portal</p>
+              </div>
+            </a>
+            
+            <a
+              href="https://app.smi.in.net/admin/login"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-col items-center gap-3 p-6 rounded-2xl bg-white border border-orange-100 shadow-sm hover:shadow-md hover:border-orange-300 transition-all text-center group"
+            >
+              <div className="w-12 h-12 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <ShieldCheck size={24} />
+              </div>
+              <div>
+                <h3 className="font-bold text-orange-950">Admin Login</h3>
+                <p className="text-xs text-orange-900/60 mt-1">Administrative dashboard</p>
+              </div>
+            </a>
+          </div>
+        </DialogContent>
+      </Dialog>
     </motion.nav>
   );
 }

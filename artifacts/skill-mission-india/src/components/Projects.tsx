@@ -276,7 +276,6 @@ export function Projects() {
                       </div>
 
                       <Button
-                        asChild
                         size="sm"
                         className="w-full rounded-xl font-bold text-xs py-4 transition-all duration-300 group/btn"
                         style={{
@@ -285,11 +284,14 @@ export function Projects() {
                           backdropFilter: "blur(6px)",
                           border: `1px solid ${isHovered ? project.accent : "rgba(255,255,255,0.18)"}`,
                         }}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          window.dispatchEvent(new CustomEvent("select-program", { detail: project.title }));
+                          document.getElementById("apply")?.scrollIntoView({ behavior: "smooth" });
+                        }}
                       >
-                        <a href="https://app.smi.in.net/login" target="_blank" rel="noopener noreferrer">
-                          Learn More
-                          <ArrowUpRight size={13} className="ml-1 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
-                        </a>
+                        Learn More
+                        <ArrowUpRight size={13} className="ml-1 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
                       </Button>
                     </div>
                   </div>
