@@ -287,7 +287,7 @@ export function Projects() {
                         onClick={(e) => {
                           e.preventDefault();
                           window.dispatchEvent(new CustomEvent("select-program", { detail: project.title }));
-                          document.getElementById("apply")?.scrollIntoView({ behavior: "smooth" });
+                          document.getElementById("contact-us")?.scrollIntoView({ behavior: "smooth" });
                         }}
                       >
                         Learn More
