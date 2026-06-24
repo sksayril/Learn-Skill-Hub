@@ -144,7 +144,7 @@ export function Footer() {
           <div className="flex items-center gap-2">
             <img src={logoImg} alt="" className="w-6 h-6 object-contain rounded-full opacity-60" />
             <p className="text-xs text-muted-foreground">
-              © 2025 Support Mission India. Government of India. All rights reserved.
+              © 2025 Support Mission India. All rights reserved.
             </p>
           </div>
           <div className="flex gap-5 text-xs text-muted-foreground">

@@ -11,15 +11,10 @@ const contactInfo = [
   {
     icon: Mail,
     label: "Email",
-    value: "info@skillmissionindia.gov.in",
-    href: "mailto:info@skillmissionindia.gov.in",
+    value: "info@smi.in.net",
+    href: "mailto:info@smi.in.net",
   },
-  {
-    icon: MapPin,
-    label: "Address",
-    value: "Ministry of Skill Development, New Delhi - 110001",
-    href: null,
-  },
+
 ];
 
 export function ContactUs() {
@@ -125,80 +120,80 @@ export function ContactUs() {
           >
             {!submitted ? (
               <Motion3DCard tilt={8} hoverScale={1.01} lift={4} innerClassName="p-6 md:p-8 rounded-2xl border border-orange-200 bg-white/90">
-              <form
-                onSubmit={handleSubmit}
-                className="space-y-5"
-                data-testid="form-contact"
-              >
-                <div>
-                  <label htmlFor="contact-name" className="block text-sm font-medium text-foreground mb-1.5">
-                    Full Name
-                  </label>
-                  <input
-                    id="contact-name"
-                    type="text"
-                    required
-                    value={form.name}
-                    onChange={(e) => setForm({ ...form, name: e.target.value })}
-                    className="w-full px-4 py-2.5 rounded-xl border border-border bg-background text-foreground text-sm focus:outline-none focus:border-secondary transition-all"
-                    data-testid="input-contact-name"
-                    suppressHydrationWarning
-                  />
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label htmlFor="contact-email" className="block text-sm font-medium text-foreground mb-1.5">
-                      Email
-                    </label>
-                    <input
-                      id="contact-email"
-                      type="email"
-                      required
-                      value={form.email}
-                      onChange={(e) => setForm({ ...form, email: e.target.value })}
-                      className="w-full px-4 py-2.5 rounded-xl border border-border bg-background text-foreground text-sm focus:outline-none focus:border-secondary transition-all"
-                      data-testid="input-contact-email"
-                      suppressHydrationWarning
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="contact-phone" className="block text-sm font-medium text-foreground mb-1.5">
-                      Phone
-                    </label>
-                    <input
-                      id="contact-phone"
-                      type="tel"
-                      value={form.phone}
-                      onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                      className="w-full px-4 py-2.5 rounded-xl border border-border bg-background text-foreground text-sm focus:outline-none focus:border-secondary transition-all"
-                      data-testid="input-contact-phone"
-                      suppressHydrationWarning
-                    />
-                  </div>
-                </div>
-                <div>
-                  <label htmlFor="contact-message" className="block text-sm font-medium text-foreground mb-1.5">
-                    Message
-                  </label>
-                  <textarea
-                    id="contact-message"
-                    required
-                    rows={4}
-                    value={form.message}
-                    onChange={(e) => setForm({ ...form, message: e.target.value })}
-                    className="w-full px-4 py-2.5 rounded-xl border border-border bg-background text-foreground text-sm focus:outline-none focus:border-secondary transition-all resize-none"
-                    data-testid="input-contact-message"
-                    suppressHydrationWarning
-                  />
-                </div>
-                <Button
-                  type="submit"
-                  className="w-full btn-orange"
-                  data-testid="button-contact-submit"
+                <form
+                  onSubmit={handleSubmit}
+                  className="space-y-5"
+                  data-testid="form-contact"
                 >
-                  Send Enquiry <Send size={16} className="ml-2" />
-                </Button>
-              </form>
+                  <div>
+                    <label htmlFor="contact-name" className="block text-sm font-medium text-foreground mb-1.5">
+                      Full Name
+                    </label>
+                    <input
+                      id="contact-name"
+                      type="text"
+                      required
+                      value={form.name}
+                      onChange={(e) => setForm({ ...form, name: e.target.value })}
+                      className="w-full px-4 py-2.5 rounded-xl border border-border bg-background text-foreground text-sm focus:outline-none focus:border-secondary transition-all"
+                      data-testid="input-contact-name"
+                      suppressHydrationWarning
+                    />
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label htmlFor="contact-email" className="block text-sm font-medium text-foreground mb-1.5">
+                        Email
+                      </label>
+                      <input
+                        id="contact-email"
+                        type="email"
+                        required
+                        value={form.email}
+                        onChange={(e) => setForm({ ...form, email: e.target.value })}
+                        className="w-full px-4 py-2.5 rounded-xl border border-border bg-background text-foreground text-sm focus:outline-none focus:border-secondary transition-all"
+                        data-testid="input-contact-email"
+                        suppressHydrationWarning
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="contact-phone" className="block text-sm font-medium text-foreground mb-1.5">
+                        Phone
+                      </label>
+                      <input
+                        id="contact-phone"
+                        type="tel"
+                        value={form.phone}
+                        onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                        className="w-full px-4 py-2.5 rounded-xl border border-border bg-background text-foreground text-sm focus:outline-none focus:border-secondary transition-all"
+                        data-testid="input-contact-phone"
+                        suppressHydrationWarning
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label htmlFor="contact-message" className="block text-sm font-medium text-foreground mb-1.5">
+                      Message
+                    </label>
+                    <textarea
+                      id="contact-message"
+                      required
+                      rows={4}
+                      value={form.message}
+                      onChange={(e) => setForm({ ...form, message: e.target.value })}
+                      className="w-full px-4 py-2.5 rounded-xl border border-border bg-background text-foreground text-sm focus:outline-none focus:border-secondary transition-all resize-none"
+                      data-testid="input-contact-message"
+                      suppressHydrationWarning
+                    />
+                  </div>
+                  <Button
+                    type="submit"
+                    className="w-full btn-orange"
+                    data-testid="button-contact-submit"
+                  >
+                    Send Enquiry <Send size={16} className="ml-2" />
+                  </Button>
+                </form>
               </Motion3DCard>
             ) : (
               <motion.div
