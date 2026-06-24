@@ -15,7 +15,7 @@ const faqs = [
   },
   {
     q: "What certifications will I receive after completing the training?",
-    a: "Depending on the program, you will receive certifications from NIELIT, NSDC, MSME, or corporate partners like IBM and Infosys. All certificates are nationally recognized by the Government of India.",
+    a: "Depending on the program, you will receive certifications from NIELIT, NSDC, MSME, or corporate partners like IBM and Infosys. All certificates are nationally ",
   },
   {
     q: "How does the placement support work?",
@@ -57,9 +57,8 @@ function FAQItem({ q, a, i }: { q: string; a: string; i: number }) {
         suppressHydrationWarning
       >
         <span className="font-semibold text-foreground text-sm md:text-base">{q}</span>
-        <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300 ${
-          open ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"
-        }`}>
+        <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300 ${open ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"
+          }`}>
           {open ? <Minus size={14} /> : <Plus size={14} />}
         </div>
       </button>

@@ -56,7 +56,7 @@ export function AboutUs() {
             About Support Mission India
           </h2>
           <p className="text-muted-foreground text-lg max-w-3xl mx-auto leading-relaxed">
-            Support Mission India is a Government of India initiative dedicated to bridging the gap between
+            Support Mission India is a initiative dedicated to bridging the gap between
             education and employment. We partner with ministries, CSR corporates, and accredited training
             providers to deliver free, certified skill development programs nationwide.
           </p>
@@ -69,22 +69,22 @@ export function AboutUs() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="relative"
           >
-          <Motion3DCard tilt={8} hoverScale={1.02} lift={6} innerClassName="relative rounded-2xl overflow-hidden">
-            <div className="rounded-2xl overflow-hidden border border-orange-200 shadow-xl aspect-[4/3]">
-              <img
-                src={EDU_IMAGES.about.main.src}
-                alt={EDU_IMAGES.about.main.alt}
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="absolute -bottom-4 -right-4 w-28 h-28 rounded-2xl overflow-hidden border-4 border-orange-50 shadow-lg hidden sm:block z-10">
-              <img
-                src={EDU_IMAGES.about.graduation.src}
-                alt={EDU_IMAGES.about.graduation.alt}
-                className="w-full h-full object-cover"
-              />
-            </div>
-          </Motion3DCard>
+            <Motion3DCard tilt={8} hoverScale={1.02} lift={6} innerClassName="relative rounded-2xl overflow-hidden">
+              <div className="rounded-2xl overflow-hidden border border-orange-200 shadow-xl aspect-[4/3]">
+                <img
+                  src={EDU_IMAGES.about.main.src}
+                  alt={EDU_IMAGES.about.main.alt}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="absolute -bottom-4 -right-4 w-28 h-28 rounded-2xl overflow-hidden border-4 border-orange-50 shadow-lg hidden sm:block z-10">
+                <img
+                  src={EDU_IMAGES.about.graduation.src}
+                  alt={EDU_IMAGES.about.graduation.alt}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </Motion3DCard>
           </motion.div>
 
           <motion.div
@@ -121,18 +121,18 @@ export function AboutUs() {
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
               >
-              <Motion3DCard
-                tilt={10}
-                hoverScale={1.03}
-                lift={6}
-                innerClassName="p-6 rounded-2xl border border-orange-200 bg-white/80 hover:border-orange-300 h-full"
-              >
-                <div className="w-12 h-12 rounded-xl bg-orange-500/15 border border-orange-300 flex items-center justify-center mb-4">
-                  <Icon className="text-orange-600" size={22} />
-                </div>
-                <h3 className="text-lg font-bold text-orange-950 mb-2">{item.title}</h3>
-                <p className="text-orange-900/70 text-sm leading-relaxed">{item.desc}</p>
-              </Motion3DCard>
+                <Motion3DCard
+                  tilt={10}
+                  hoverScale={1.03}
+                  lift={6}
+                  innerClassName="p-6 rounded-2xl border border-orange-200 bg-white/80 hover:border-orange-300 h-full"
+                >
+                  <div className="w-12 h-12 rounded-xl bg-orange-500/15 border border-orange-300 flex items-center justify-center mb-4">
+                    <Icon className="text-orange-600" size={22} />
+                  </div>
+                  <h3 className="text-lg font-bold text-orange-950 mb-2">{item.title}</h3>
+                  <p className="text-orange-900/70 text-sm leading-relaxed">{item.desc}</p>
+                </Motion3DCard>
               </motion.div>
             );
           })}

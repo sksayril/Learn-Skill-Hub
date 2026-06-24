@@ -110,7 +110,7 @@ export function Benefits() {
             </span>
           </h2>
           <p className="text-orange-900/60 text-lg max-w-xl mx-auto">
-            Fully sponsored by Government of India and Industry CSR partners.
+            Fully sponsored by  and Industry CSR partners.
           </p>
         </motion.div>
 
@@ -124,53 +124,53 @@ export function Benefits() {
             const Icon = b.icon;
             return (
               <motion.div key={i} variants={itemVariants} className={`h-full ${b.span}`}>
-              <Motion3DCard
-                tilt={12}
-                hoverScale={1.03}
-                lift={8}
-                innerClassName={`relative rounded-2xl overflow-hidden group cursor-default border border-white/10 hover:border-white/25 h-full min-h-[280px] ${b.span}`}
-                style={{ boxShadow: "0 4px 30px rgba(0,0,0,0.35)" }}
-                data-testid={`card-benefit-${i}`}
-              >
-                {/* Background image */}
-                <img
-                  src={b.image}
-                  alt={b.imageAlt}
-                  className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110"
-                />
-                {/* Overlays */}
-                <div className={`absolute inset-0 bg-gradient-to-t ${b.gradientFrom}/80 via-black/50 to-black/20`} />
-                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors duration-500" />
+                <Motion3DCard
+                  tilt={12}
+                  hoverScale={1.03}
+                  lift={8}
+                  innerClassName={`relative rounded-2xl overflow-hidden group cursor-default border border-white/10 hover:border-white/25 h-full min-h-[280px] ${b.span}`}
+                  style={{ boxShadow: "0 4px 30px rgba(0,0,0,0.35)" }}
+                  data-testid={`card-benefit-${i}`}
+                >
+                  {/* Background image */}
+                  <img
+                    src={b.image}
+                    alt={b.imageAlt}
+                    className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110"
+                  />
+                  {/* Overlays */}
+                  <div className={`absolute inset-0 bg-gradient-to-t ${b.gradientFrom}/80 via-black/50 to-black/20`} />
+                  <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors duration-500" />
 
-                {/* Glow on hover */}
-                <div
-                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-                  style={{
-                    background: `radial-gradient(circle at 50% 120%, ${b.accent}25 0%, transparent 70%)`,
-                  }}
-                />
-
-                {/* Content */}
-                <div className="relative z-10 p-6 h-full flex flex-col justify-between">
+                  {/* Glow on hover */}
                   <div
-                    className="w-12 h-12 rounded-xl flex items-center justify-center backdrop-blur-sm border border-white/20"
-                    style={{ background: `${b.accent}25` }}
-                  >
-                    <Icon size={22} style={{ color: b.accent }} />
+                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                    style={{
+                      background: `radial-gradient(circle at 50% 120%, ${b.accent}25 0%, transparent 70%)`,
+                    }}
+                  />
+
+                  {/* Content */}
+                  <div className="relative z-10 p-6 h-full flex flex-col justify-between">
+                    <div
+                      className="w-12 h-12 rounded-xl flex items-center justify-center backdrop-blur-sm border border-white/20"
+                      style={{ background: `${b.accent}25` }}
+                    >
+                      <Icon size={22} style={{ color: b.accent }} />
+                    </div>
+
+                    <div>
+                      <h3 className="text-xl font-bold text-white mb-2">{b.title}</h3>
+                      <p className="text-white/65 text-sm leading-relaxed">{b.desc}</p>
+                    </div>
                   </div>
 
-                  <div>
-                    <h3 className="text-xl font-bold text-white mb-2">{b.title}</h3>
-                    <p className="text-white/65 text-sm leading-relaxed">{b.desc}</p>
-                  </div>
-                </div>
-
-                {/* Accent bottom border */}
-                <div
-                  className="absolute bottom-0 left-0 right-0 h-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                  style={{ background: `linear-gradient(90deg, transparent, ${b.accent}, transparent)` }}
-                />
-              </Motion3DCard>
+                  {/* Accent bottom border */}
+                  <div
+                    className="absolute bottom-0 left-0 right-0 h-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    style={{ background: `linear-gradient(90deg, transparent, ${b.accent}, transparent)` }}
+                  />
+                </Motion3DCard>
               </motion.div>
             );
           })}

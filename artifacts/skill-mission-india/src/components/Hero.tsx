@@ -77,7 +77,7 @@ export function Hero() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-500 opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-500" />
               </span>
-              Government of India — Skill Development Initiative
+              Skill Development Initiative
               <div className="flex gap-0.5 ml-1">
                 {[...Array(5)].map((_, i) => <Star key={i} size={10} className="fill-amber-500 text-amber-500" />)}
               </div>
