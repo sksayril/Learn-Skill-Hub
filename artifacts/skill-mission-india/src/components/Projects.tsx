@@ -1,6 +1,6 @@
 "use client";
  
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { 
@@ -14,7 +14,8 @@ import {
   HeartHandshake, 
   ArrowUpRight, 
   CheckCircle,
-  FolderOpen
+  FolderOpen,
+  Loader2
 } from "lucide-react";
 import { EDU_IMAGES } from "@/lib/images";
 import { Motion3DCard } from "@/components/Motion3DCard";
@@ -27,9 +28,21 @@ const categories = [
   "Infrastructure & Tech"
 ];
 
-const projectsData = [
+const IconMap: { [key: string]: any } = {
+  Droplet, 
+  Leaf, 
+  Zap, 
+  GraduationCap, 
+  School, 
+  Cpu, 
+  Activity, 
+  HeartHandshake,
+  FolderOpen
+};
+
+const initialProjectsData = [
   {
-    icon: Droplet,
+    icon: "Droplet",
     title: "BKSY (Banglar Krishi Sech Yojana)",
     subtitle: "Bengal Agricultural Irrigation Scheme",
     category: "Agriculture",
@@ -43,7 +56,7 @@ const projectsData = [
     stats: "1,200+ Pumps Distributed",
   },
   {
-    icon: Leaf,
+    icon: "Leaf",
     title: "Matir Kotha",
     subtitle: "Farmer Advisory & Soil Portal",
     category: "Agriculture",
@@ -57,7 +70,7 @@ const projectsData = [
     stats: "25k+ Soil Tests Completed",
   },
   {
-    icon: Zap,
+    icon: "Zap",
     title: "Alosree Project",
     subtitle: "Solar & LED Street Lighting Initiative",
     category: "Infrastructure & Tech",
@@ -71,7 +84,7 @@ const projectsData = [
     stats: "10k+ Solar Street Lights",
   },
   {
-    icon: GraduationCap,
+    icon: "GraduationCap",
     title: "Skill Training",
     subtitle: "National Vocational Certifications",
     category: "Education",
@@ -85,7 +98,7 @@ const projectsData = [
     stats: "15k+ Certified Trainees",
   },
   {
-    icon: School,
+    icon: "School",
     title: "School Project",
     subtitle: "Smart Digital Classrooms",
     category: "Education",
@@ -99,7 +112,7 @@ const projectsData = [
     stats: "45+ Rural Schools Covered",
   },
   {
-    icon: Cpu,
+    icon: "Cpu",
     title: "Digitization Project",
     subtitle: "E-Governance Records Digitalization",
     category: "Infrastructure & Tech",
@@ -113,7 +126,7 @@ const projectsData = [
     stats: "200k+ Documents Cataloged",
   },
   {
-    icon: Activity,
+    icon: "Activity",
     title: "Free Health Camp",
     subtitle: "Rural Diagnostics & Checkups",
     category: "Healthcare & Hygiene",
@@ -127,7 +140,7 @@ const projectsData = [
     stats: "8,500+ Patients Treated",
   },
   {
-    icon: HeartHandshake,
+    icon: "HeartHandshake",
     title: "Sanitary Napkin Distribution",
     subtitle: "Hygiene Literacy & Free Kits",
     category: "Healthcare & Hygiene",
@@ -157,10 +170,33 @@ export function Projects() {
   const inView = useInView(ref, { once: true, margin: "-60px" });
   const [activeTab, setActiveTab] = useState("All");
   const [hovered, setHovered] = useState<number | null>(null);
+  
+  const [projectsList, setProjectsList] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadProjects() {
+      try {
+        const response = await fetch("/api/projects");
+        const json = await response.json();
+        if (json.success && json.data && json.data.length > 0) {
+          setProjectsList(json.data);
+        } else {
+          setProjectsList(initialProjectsData);
+        }
+      } catch (err) {
+        console.error("Failed to load projects:", err);
+        setProjectsList(initialProjectsData);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadProjects();
+  }, []);
 
   const filteredProjects = activeTab === "All"
-    ? projectsData
-    : projectsData.filter(project => project.category === activeTab);
+    ? projectsList
+    : projectsList.filter(project => project.category === activeTab);
 
   return (
     <section id="our-projects" className="py-28 bg-orange-surface relative overflow-hidden" ref={ref}>
@@ -208,98 +244,112 @@ export function Projects() {
         </div>
 
         {/* Projects Grid */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
-        >
-          {filteredProjects.map((project, i) => {
-            const Icon = project.icon;
-            const isHovered = hovered === i;
-            return (
-              <motion.div key={project.title} variants={cardVariants} className="h-full">
-                <Motion3DCard
-                  tilt={12}
-                  hoverScale={1.02}
-                  lift={8}
-                  innerClassName="relative group rounded-2xl overflow-hidden cursor-pointer border border-white/10 hover:border-white/20 h-full min-h-[420px] flex flex-col justify-between"
-                  onMouseEnter={() => setHovered(i)}
-                  onMouseLeave={() => setHovered(null)}
-                  style={{
-                    boxShadow: isHovered ? `0 20px 40px -10px ${project.accent}30` : "0 4px 15px rgba(0,0,0,0.15)",
-                  }}
-                >
-                  {/* Background image */}
-                  <div className="absolute inset-0">
-                    <img
-                      src={project.image.src}
-                      alt={project.image.alt}
-                      className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
-                    />
-                    {/* Gradient overlays */}
-                    <div className={`absolute inset-0 bg-gradient-to-t ${project.gradient}`} />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/70 to-black/20" />
-                  </div>
+        {loading ? (
+          <div className="flex flex-col items-center justify-center py-20 text-orange-800">
+            <Loader2 className="animate-spin mb-3 text-orange-600" size={32} />
+            <p className="text-sm font-medium">Loading initiatives...</p>
+          </div>
+        ) : (
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate={inView ? "visible" : "hidden"}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+          >
+            {filteredProjects.map((project, i) => {
+              const IconComp = IconMap[project.icon] || FolderOpen;
+              const isHovered = hovered === i;
+              
+              // Handle image src & alt for both database (string) and static imports (object)
+              const imgUrl = typeof project.image === 'string' ? project.image : project.image?.src || "";
+              const imgAlt = typeof project.image === 'string' ? project.title : project.image?.alt || project.title;
 
-                  {/* Content Container */}
-                  <div className="relative z-10 p-5 flex flex-col justify-between h-full min-h-[420px]">
-                    {/* Top Row */}
-                    <div className="flex items-start justify-between">
-                      <div className={`w-11 h-11 rounded-xl ${project.accentBg} border ${project.accentBorder} backdrop-blur-sm flex items-center justify-center`}>
-                        <Icon className={project.accentText} size={20} />
-                      </div>
-                      <span className={`px-2 py-0.5 rounded-full text-[9px] font-bold tracking-wider uppercase ${project.accentBg} ${project.accentText} ${project.accentBorder} border backdrop-blur-sm`}>
-                        {project.category}
-                      </span>
+              return (
+                <motion.div key={project.title + "-" + i} variants={cardVariants} className="h-full">
+                  <Motion3DCard
+                    tilt={12}
+                    hoverScale={1.02}
+                    lift={8}
+                    innerClassName="relative group rounded-2xl overflow-hidden cursor-pointer border border-white/10 hover:border-white/20 h-full min-h-[420px] flex flex-col justify-between"
+                    onMouseEnter={() => setHovered(i)}
+                    onMouseLeave={() => setHovered(null)}
+                    style={{
+                      boxShadow: isHovered ? `0 20px 40px -10px ${project.accent || "#F59E0B"}30` : "0 4px 15px rgba(0,0,0,0.15)",
+                    }}
+                  >
+                    {/* Background image */}
+                    <div className="absolute inset-0 bg-[#0c182c]">
+                      {imgUrl && (
+                        <img
+                          src={imgUrl}
+                          alt={imgAlt}
+                          className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                        />
+                      )}
+                      {/* Gradient overlays */}
+                      <div className={`absolute inset-0 bg-gradient-to-t ${project.gradient || "from-slate-900/90 via-slate-800/70 to-transparent"}`} />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/70 to-black/20" />
                     </div>
 
-                    {/* Bottom Content */}
-                    <div className="mt-auto pt-16">
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-orange-400">
-                        {project.stats}
-                      </span>
-                      <h3 className="text-lg font-bold text-white mb-2 leading-tight mt-1">
-                        {project.title}
-                      </h3>
-                      <p className="text-white/60 text-xs font-medium tracking-wide mb-4 line-clamp-2">
-                        {project.subtitle}
-                      </p>
-
-                      <div className="space-y-1.5 mb-5">
-                        {project.benefits.map((b, j) => (
-                          <div key={j} className="flex items-start gap-2">
-                            <CheckCircle size={12} className={`${project.accentText} mt-0.5 shrink-0`} />
-                            <span className="text-white/80 text-xs">{b}</span>
-                          </div>
-                        ))}
+                    {/* Content Container */}
+                    <div className="relative z-10 p-5 flex flex-col justify-between h-full min-h-[420px]">
+                      {/* Top Row */}
+                      <div className="flex items-start justify-between">
+                        <div className={`w-11 h-11 rounded-xl ${project.accentBg || "bg-orange-500/20"} border ${project.accentBorder || "border-orange-400/40"} backdrop-blur-sm flex items-center justify-center`}>
+                          <IconComp className={project.accentText || "text-orange-300"} size={20} />
+                        </div>
+                        <span className={`px-2 py-0.5 rounded-full text-[9px] font-bold tracking-wider uppercase ${project.accentBg || "bg-orange-500/20"} ${project.accentText || "text-orange-300"} ${project.accentBorder || "border-orange-400/40"} border backdrop-blur-sm`}>
+                          {project.category}
+                        </span>
                       </div>
 
-                      <Button
-                        size="sm"
-                        className="w-full rounded-xl font-bold text-xs py-4 transition-all duration-300 group/btn"
-                        style={{
-                          background: isHovered ? project.accent : "rgba(255,255,255,0.12)",
-                          color: isHovered ? "#0B1F4D" : "white",
-                          backdropFilter: "blur(6px)",
-                          border: `1px solid ${isHovered ? project.accent : "rgba(255,255,255,0.18)"}`,
-                        }}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          window.dispatchEvent(new CustomEvent("select-program", { detail: project.title }));
-                          document.getElementById("contact-us")?.scrollIntoView({ behavior: "smooth" });
-                        }}
-                      >
-                        Learn More
-                        <ArrowUpRight size={13} className="ml-1 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
-                      </Button>
+                      {/* Bottom Content */}
+                      <div className="mt-auto pt-16">
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-orange-400">
+                          {project.stats}
+                        </span>
+                        <h3 className="text-lg font-bold text-white mb-2 leading-tight mt-1">
+                          {project.title}
+                        </h3>
+                        <p className="text-white/60 text-xs font-medium tracking-wide mb-4 line-clamp-2">
+                          {project.subtitle}
+                        </p>
+
+                        <div className="space-y-1.5 mb-5">
+                          {(Array.isArray(project.benefits) ? project.benefits : []).map((b: string, j: number) => (
+                            <div key={j} className="flex items-start gap-2">
+                              <CheckCircle size={12} className={`${project.accentText || "text-orange-300"} mt-0.5 shrink-0`} />
+                              <span className="text-white/80 text-xs">{b}</span>
+                            </div>
+                          ))}
+                        </div>
+
+                        <Button
+                          size="sm"
+                          className="w-full rounded-xl font-bold text-xs py-4 transition-all duration-300 group/btn"
+                          style={{
+                            background: isHovered ? (project.accent || "#F59E0B") : "rgba(255,255,255,0.12)",
+                            color: isHovered ? "#0B1F4D" : "white",
+                            backdropFilter: "blur(6px)",
+                            border: `1px solid ${isHovered ? (project.accent || "#F59E0B") : "rgba(255,255,255,0.18)"}`,
+                          }}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            window.dispatchEvent(new CustomEvent("select-program", { detail: project.title }));
+                            document.getElementById("contact-us")?.scrollIntoView({ behavior: "smooth" });
+                          }}
+                        >
+                          Learn More
+                          <ArrowUpRight size={13} className="ml-1 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
+                        </Button>
+                      </div>
                     </div>
-                  </div>
-                </Motion3DCard>
-              </motion.div>
-            );
-          })}
-        </motion.div>
+                  </Motion3DCard>
+                </motion.div>
+              );
+            })}
+          </motion.div>
+        )}
       </div>
     </section>
   );

@@ -19,7 +19,17 @@ import {
   TrendingUp,
   Inbox,
   AlertCircle,
-  Megaphone
+  Megaphone,
+  Upload,
+  Droplet,
+  Leaf,
+  Zap,
+  GraduationCap,
+  School,
+  Cpu,
+  Activity,
+  HeartHandshake,
+  FolderOpen
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -53,7 +63,22 @@ export default function AdminDashboard() {
   const [contacts, setContacts] = useState<Contact[]>([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
-  const [activeTab, setActiveTab] = useState<"enquiries" | "contacts" | "notice" | "courses">("enquiries");
+  const [activeTab, setActiveTab] = useState<"enquiries" | "contacts" | "notice" | "courses" | "notice-section" | "projects">("enquiries");
+  
+  // Projects state & form settings
+  const [projects, setProjects] = useState<any[]>([]);
+  const [editingProject, setEditingProject] = useState<any | null>(null);
+  const [projectTitle, setProjectTitle] = useState("");
+  const [projectSubtitle, setProjectSubtitle] = useState("");
+  const [projectCategory, setProjectCategory] = useState("Agriculture");
+  const [projectImage, setProjectImage] = useState("");
+  const [projectIcon, setProjectIcon] = useState("Droplet");
+  const [projectStats, setProjectStats] = useState("");
+  const [projectThemePreset, setProjectThemePreset] = useState("Blue (Agriculture/Water)");
+  const [projectBenefits, setProjectBenefits] = useState("");
+  const [projectSaving, setProjectSaving] = useState(false);
+  const [projectMessage, setProjectMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
+  const [isProjectImageUploading, setIsProjectImageUploading] = useState(false);
   
   // Search & Filters
   const [searchTerm, setSearchTerm] = useState("");
@@ -63,12 +88,21 @@ export default function AdminDashboard() {
   const [selectedEnquiry, setSelectedEnquiry] = useState<Enquiry | null>(null);
   const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
 
-  // Notice board state
+  // Notice board (popup) state
   const [noticeTitle, setNoticeTitle] = useState("");
   const [noticeContent, setNoticeContent] = useState("");
   const [noticeActive, setNoticeActive] = useState(false);
   const [noticeSaving, setNoticeSaving] = useState(false);
   const [noticeMessage, setNoticeMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
+
+  // Notice Section (inline homepage) state
+  const [noticeSectionTitle, setNoticeSectionTitle] = useState("");
+  const [noticeSectionContent, setNoticeSectionContent] = useState("");
+  const [noticeSectionActive, setNoticeSectionActive] = useState(false);
+  const [noticeSectionImage, setNoticeSectionImage] = useState("");
+  const [isNoticeSectionImageUploading, setIsNoticeSectionImageUploading] = useState(false);
+  const [noticeSectionSaving, setNoticeSectionSaving] = useState(false);
+  const [noticeSectionMessage, setNoticeSectionMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
   // Courses state & form settings
   const [courses, setCourses] = useState<any[]>([]);
@@ -210,19 +244,199 @@ export default function AdminDashboard() {
     }
   };
 
+  const getProjectThemeValues = (preset: string) => {
+    switch (preset) {
+      case "Blue (Agriculture/Water)":
+        return {
+          accent: "#00C2FF",
+          accentBg: "bg-blue-500/20",
+          accentText: "text-blue-300",
+          accentBorder: "border-blue-400/40",
+          gradient: "from-blue-900/90 via-blue-800/70 to-transparent",
+        };
+      case "Green (Agriculture/Plants)":
+        return {
+          accent: "#10B981",
+          accentBg: "bg-emerald-500/20",
+          accentText: "text-emerald-300",
+          accentBorder: "border-emerald-400/40",
+          gradient: "from-emerald-900/90 via-emerald-800/70 to-transparent",
+        };
+      case "Amber (Energy/Solar)":
+        return {
+          accent: "#F59E0B",
+          accentBg: "bg-amber-500/20",
+          accentText: "text-amber-300",
+          accentBorder: "border-amber-400/40",
+          gradient: "from-amber-900/90 via-amber-800/70 to-transparent",
+        };
+      case "Cyan (Education/Tech)":
+        return {
+          accent: "#06B6D4",
+          accentBg: "bg-cyan-500/20",
+          accentText: "text-cyan-300",
+          accentBorder: "border-cyan-400/40",
+          gradient: "from-cyan-900/90 via-cyan-800/70 to-transparent",
+        };
+      case "Purple (Education/Schools)":
+        return {
+          accent: "#A78BFA",
+          accentBg: "bg-purple-500/20",
+          accentText: "text-purple-300",
+          accentBorder: "border-purple-400/40",
+          gradient: "from-purple-900/90 via-purple-800/70 to-transparent",
+        };
+      case "Indigo (Infrastructure/Tech)":
+        return {
+          accent: "#6366F1",
+          accentBg: "bg-indigo-500/20",
+          accentText: "text-indigo-300",
+          accentBorder: "border-indigo-400/40",
+          gradient: "from-indigo-900/90 via-indigo-800/70 to-transparent",
+        };
+      case "Rose (Healthcare/Diagnostic)":
+        return {
+          accent: "#F43F5E",
+          accentBg: "bg-rose-500/20",
+          accentText: "text-rose-300",
+          accentBorder: "border-rose-400/40",
+          gradient: "from-rose-900/90 via-rose-800/70 to-transparent",
+        };
+      case "Pink (Hygiene/Napkins)":
+        return {
+          accent: "#EC4899",
+          accentBg: "bg-pink-500/20",
+          accentText: "text-pink-300",
+          accentBorder: "border-pink-400/40",
+          gradient: "from-pink-900/90 via-pink-800/70 to-transparent",
+        };
+      default:
+        return {
+          accent: "#00C2FF",
+          accentBg: "bg-blue-500/20",
+          accentText: "text-blue-300",
+          accentBorder: "border-blue-400/40",
+          gradient: "from-blue-900/90 via-blue-800/70 to-transparent",
+        };
+    }
+  };
+
+  const resetProjectForm = () => {
+    setEditingProject(null);
+    setProjectTitle("");
+    setProjectSubtitle("");
+    setProjectCategory("Agriculture");
+    setProjectImage("");
+    setProjectIcon("Droplet");
+    setProjectStats("");
+    setProjectThemePreset("Blue (Agriculture/Water)");
+    setProjectBenefits("");
+  };
+
+  const handleEditProject = (project: any) => {
+    setEditingProject(project);
+    setProjectTitle(project.title || "");
+    setProjectSubtitle(project.subtitle || "");
+    setProjectCategory(project.category || "Agriculture");
+    setProjectImage(typeof project.image === 'string' ? project.image : project.image?.src || "");
+    setProjectIcon(project.icon || "Droplet");
+    setProjectStats(project.stats || "");
+    setProjectBenefits(Array.isArray(project.benefits) ? project.benefits.join(", ") : (project.benefits || ""));
+    
+    if (project.accent === "#00C2FF") setProjectThemePreset("Blue (Agriculture/Water)");
+    else if (project.accent === "#10B981") setProjectThemePreset("Green (Agriculture/Plants)");
+    else if (project.accent === "#F59E0B") setProjectThemePreset("Amber (Energy/Solar)");
+    else if (project.accent === "#06B6D4") setProjectThemePreset("Cyan (Education/Tech)");
+    else if (project.accent === "#A78BFA") setProjectThemePreset("Purple (Education/Schools)");
+    else if (project.accent === "#6366F1") setProjectThemePreset("Indigo (Infrastructure/Tech)");
+    else if (project.accent === "#F43F5E") setProjectThemePreset("Rose (Healthcare/Diagnostic)");
+    else if (project.accent === "#EC4899") setProjectThemePreset("Pink (Hygiene/Napkins)");
+    else setProjectThemePreset("Blue (Agriculture/Water)");
+  };
+
+  const handleSaveProject = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setProjectSaving(true);
+    setProjectMessage(null);
+    const theme = getProjectThemeValues(projectThemePreset);
+    const projectPayload = {
+      title: projectTitle,
+      subtitle: projectSubtitle,
+      category: projectCategory,
+      image: projectImage || "/images/about_workshop.png",
+      icon: projectIcon,
+      stats: projectStats,
+      accent: theme.accent,
+      accentBg: theme.accentBg,
+      accentText: theme.accentText,
+      accentBorder: theme.accentBorder,
+      gradient: theme.gradient,
+      benefits: projectBenefits
+    };
+
+    try {
+      const url = "/api/projects";
+      const method = editingProject ? "PATCH" : "POST";
+      const body = editingProject ? { id: editingProject._id, ...projectPayload } : projectPayload;
+
+      const res = await fetch(url, {
+        method,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      });
+      const data = await res.json();
+      if (data.success) {
+        setProjectMessage({
+          type: "success",
+          text: editingProject ? "Project updated successfully!" : "Project added successfully!"
+        });
+        resetProjectForm();
+        // Reload projects
+        const pRes = await fetch("/api/projects");
+        const pData = await pRes.json();
+        if (pData.success) setProjects(pData.data);
+        setTimeout(() => setProjectMessage(null), 3000);
+      } else {
+        setProjectMessage({ type: "error", text: data.error || "Failed to save project" });
+      }
+    } catch (err: any) {
+      setProjectMessage({ type: "error", text: err.message || "An error occurred while saving" });
+    } finally {
+      setProjectSaving(false);
+    }
+  };
+
+  const handleDeleteProject = async (id: string) => {
+    if (!confirm("Are you sure you want to delete this project?")) return;
+    try {
+      const res = await fetch(`/api/projects?id=${id}`, { method: "DELETE" });
+      const data = await res.json();
+      if (data.success) {
+        setProjects(prev => prev.filter(p => p._id !== id));
+        if (editingProject?._id === id) resetProjectForm();
+      }
+    } catch (error) {
+      console.error("Error deleting project:", error);
+    }
+  };
+
   const fetchData = async () => {
     setLoading(true);
     try {
-      const [enqRes, conRes, noticeRes, courseRes] = await Promise.all([
+      const [enqRes, conRes, noticeRes, courseRes, noticeSectionRes, projectRes] = await Promise.all([
         fetch("/api/enquiries"),
         fetch("/api/contacts"),
         fetch("/api/notice"),
-        fetch("/api/courses")
+        fetch("/api/courses"),
+        fetch("/api/notice-section"),
+        fetch("/api/projects")
       ]);
       const enqData = await enqRes.json();
       const conData = await conRes.json();
       const noticeData = await noticeRes.json();
       const courseData = await courseRes.json();
+      const noticeSectionData = await noticeSectionRes.json();
+      const projectData = await projectRes.json();
       
       if (enqData.success) setEnquiries(enqData.data);
       if (conData.success) setContacts(conData.data);
@@ -231,7 +445,14 @@ export default function AdminDashboard() {
         setNoticeContent(noticeData.data.content || "");
         setNoticeActive(noticeData.data.active || false);
       }
+      if (noticeSectionData.success && noticeSectionData.data) {
+        setNoticeSectionTitle(noticeSectionData.data.title || "");
+        setNoticeSectionContent(noticeSectionData.data.content || "");
+        setNoticeSectionActive(noticeSectionData.data.active || false);
+        setNoticeSectionImage(noticeSectionData.data.image || "");
+      }
       if (courseData.success) setCourses(courseData.data);
+      if (projectData.success) setProjects(projectData.data);
     } catch (error) {
       console.error("Error fetching admin data:", error);
     } finally {
@@ -323,6 +544,35 @@ export default function AdminDashboard() {
       setNoticeMessage({ type: "error", text: err.message || "An error occurred while saving" });
     } finally {
       setNoticeSaving(false);
+    }
+  };
+
+  const handleSaveNoticeSection = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setNoticeSectionSaving(true);
+    setNoticeSectionMessage(null);
+    try {
+      const res = await fetch("/api/notice-section", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          title: noticeSectionTitle,
+          content: noticeSectionContent,
+          active: noticeSectionActive,
+          image: noticeSectionImage
+        })
+      });
+      const data = await res.json();
+      if (data.success) {
+        setNoticeSectionMessage({ type: "success", text: "Notice Section updated successfully!" });
+        setTimeout(() => setNoticeSectionMessage(null), 3000);
+      } else {
+        setNoticeSectionMessage({ type: "error", text: data.error || "Failed to update notice section" });
+      }
+    } catch (err: any) {
+      setNoticeSectionMessage({ type: "error", text: err.message || "An error occurred while saving" });
+    } finally {
+      setNoticeSectionSaving(false);
     }
   };
 
@@ -516,10 +766,32 @@ export default function AdminDashboard() {
               <BookOpen size={16} />
               Courses Module ({courses.length})
             </button>
+            <button
+              onClick={() => { setActiveTab("notice-section"); setSearchTerm(""); setStatusFilter("All"); }}
+              className={`flex-1 sm:flex-initial flex items-center justify-center gap-2.5 px-6 py-3.5 text-sm font-bold rounded-xl transition-all ${
+                activeTab === "notice-section"
+                  ? "bg-white text-emerald-700 shadow-sm border border-emerald-100/50"
+                  : "text-slate-600 hover:text-slate-900 hover:bg-white/40"
+              }`}
+            >
+              <Megaphone size={16} />
+              Notice Section
+            </button>
+            <button
+              onClick={() => { setActiveTab("projects"); setSearchTerm(""); setStatusFilter("All"); }}
+              className={`flex-1 sm:flex-initial flex items-center justify-center gap-2.5 px-6 py-3.5 text-sm font-bold rounded-xl transition-all ${
+                activeTab === "projects"
+                  ? "bg-white text-amber-700 shadow-sm border border-amber-100/50"
+                  : "text-slate-600 hover:text-slate-900 hover:bg-white/40"
+              }`}
+            >
+              <FolderOpen size={16} />
+              Projects ({projects.length})
+            </button>
           </div>
 
           {/* Searching and Filtering */}
-          {(activeTab !== "notice" && activeTab !== "courses") && (
+          {(activeTab !== "notice" && activeTab !== "courses" && activeTab !== "notice-section" && activeTab !== "projects") && (
             <div className="p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-sky-50">
               <div className="relative flex-1 max-w-md">
                 <Search className="absolute left-3.5 top-3.5 text-slate-400" size={17} />
@@ -749,10 +1021,11 @@ export default function AdminDashboard() {
                         onChange={(e) => setNoticeContent(e.target.value)}
                         placeholder="Describe the notice in detail..."
                         required
-                        rows={6}
+                        rows={5}
                         className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 text-sm focus:outline-none focus:bg-white focus:border-sky-400 transition-all text-slate-800 placeholder-slate-400 resize-none leading-relaxed"
                       />
                     </div>
+
 
                     <div className="flex items-center justify-between p-4 rounded-xl bg-slate-50 border border-slate-200">
                       <div>
@@ -799,7 +1072,7 @@ export default function AdminDashboard() {
                       <div className="absolute inset-0 bg-[#080e21]/40 backdrop-blur-[2px] pointer-events-none" />
                       
                       {/* Mini Modal popup */}
-                      <div className="relative w-full max-w-[280px] bg-gradient-to-br from-[#0B1F4D] to-[#071330] rounded-2xl p-4 border border-white/10 shadow-xl shadow-[#00C2FF]/10 text-center select-none">
+                      <div className="relative w-full max-w-[280px] bg-gradient-to-br from-[#0B1F4D] to-[#071330] rounded-2xl p-4 border border-white/10 shadow-xl shadow-[#00C2FF]/10 text-center select-none max-h-full overflow-y-auto">
                         {/* Status badge indicator */}
                         <div className="absolute top-3 right-3 flex items-center gap-1">
                           <span className={`w-2 h-2 rounded-full ${noticeActive ? "bg-[#00E5A8] animate-pulse" : "bg-red-400"}`} />
@@ -836,7 +1109,197 @@ export default function AdminDashboard() {
                   </div>
                 </div>
               </div>
-            ) : (
+            ) : activeTab === "notice-section" ? (
+              /* Notice Section (Homepage Inline) Tab */
+              <div className="p-6 md:p-8">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                  {/* Left Column: Form Editor */}
+                  <form onSubmit={handleSaveNoticeSection} className="space-y-6 bg-white p-6 rounded-2xl border border-emerald-100 shadow-sm">
+                    <div className="flex items-center gap-3 border-b border-slate-100 pb-4">
+                      <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600 shadow-sm">
+                        <Megaphone size={20} />
+                      </div>
+                      <div>
+                        <h4 className="font-bold text-slate-800 text-lg">Notice Section Settings</h4>
+                        <p className="text-xs text-slate-400">Manage the inline announcement block on the homepage</p>
+                      </div>
+                    </div>
+
+                    {noticeSectionMessage && (
+                      <div className={`p-4 rounded-xl border flex items-center gap-3 text-sm font-medium ${
+                        noticeSectionMessage.type === "success"
+                          ? "bg-emerald-50 border-emerald-200 text-emerald-700"
+                          : "bg-red-50 border-red-200 text-red-700"
+                      }`}>
+                        <CheckCircle2 size={18} />
+                        <span>{noticeSectionMessage.text}</span>
+                      </div>
+                    )}
+
+                    <div className="space-y-2">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500">Notice Title</label>
+                      <input
+                        type="text"
+                        value={noticeSectionTitle}
+                        onChange={(e) => setNoticeSectionTitle(e.target.value)}
+                        placeholder="e.g. Upcoming Batch Registrations Open!"
+                        required
+                        className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 text-sm focus:outline-none focus:bg-white focus:border-emerald-400 transition-all text-slate-800 placeholder-slate-400"
+                      />
+                    </div>
+
+                    <div className="space-y-2">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500">Notice Content</label>
+                      <textarea
+                        value={noticeSectionContent}
+                        onChange={(e) => setNoticeSectionContent(e.target.value)}
+                        placeholder="Describe the announcement in detail..."
+                        required
+                        rows={5}
+                        className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 text-sm focus:outline-none focus:bg-white focus:border-emerald-400 transition-all text-slate-800 placeholder-slate-400 resize-none leading-relaxed"
+                      />
+                    </div>
+
+                    <div className="space-y-2">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500">Notice Image</label>
+                      <div className="flex flex-col gap-4">
+                        {noticeSectionImage ? (
+                          <div className="relative w-full rounded-xl overflow-hidden border border-slate-200 aspect-video bg-slate-50 group">
+                            <img
+                              src={noticeSectionImage}
+                              alt="Notice Section preview"
+                              className="w-full h-full object-cover"
+                            />
+                            <div className="absolute inset-0 bg-black/45 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+                              <button
+                                type="button"
+                                onClick={() => setNoticeSectionImage("")}
+                                className="px-4 py-2 bg-red-600 text-white text-xs font-bold rounded-lg hover:bg-red-700 transition-colors flex items-center gap-1.5 shadow-md cursor-pointer"
+                              >
+                                <Trash2 size={14} />
+                                Remove Image
+                              </button>
+                            </div>
+                          </div>
+                        ) : (
+                          <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50 transition-colors bg-slate-50">
+                            <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                              {isNoticeSectionImageUploading ? (
+                                <>
+                                  <Loader2 className="animate-spin text-emerald-500 mb-2" size={24} />
+                                  <p className="text-xs text-slate-500 font-semibold">Processing image...</p>
+                                </>
+                              ) : (
+                                <>
+                                  <Upload className="text-slate-400 mb-2" size={24} />
+                                  <p className="text-sm font-bold text-slate-600">Click to upload notice image</p>
+                                  <p className="text-xs text-slate-400 mt-1">PNG, JPG or WEBP (Max 2MB)</p>
+                                </>
+                              )}
+                            </div>
+                            <input
+                              type="file"
+                              accept="image/*"
+                              className="hidden"
+                              disabled={isNoticeSectionImageUploading}
+                              onChange={async (e) => {
+                                const file = e.target.files?.[0];
+                                if (!file) return;
+                                if (file.size > 2 * 1024 * 1024) {
+                                  alert("Image size must be less than 2MB.");
+                                  return;
+                                }
+                                setIsNoticeSectionImageUploading(true);
+                                const reader = new FileReader();
+                                reader.onloadend = () => {
+                                  setNoticeSectionImage(reader.result as string);
+                                  setIsNoticeSectionImageUploading(false);
+                                };
+                                reader.onerror = () => {
+                                  alert("Failed to read image file.");
+                                  setIsNoticeSectionImageUploading(false);
+                                };
+                                reader.readAsDataURL(file);
+                              }}
+                            />
+                          </label>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="flex items-center justify-between p-4 rounded-xl bg-slate-50 border border-slate-200">
+                      <div>
+                        <h5 className="text-sm font-bold text-slate-800">Status</h5>
+                        <p className="text-xs text-slate-400">Enable or disable the inline notice section on the homepage</p>
+                      </div>
+                      <label className="relative inline-flex items-center cursor-pointer select-none">
+                        <input
+                          type="checkbox"
+                          checked={noticeSectionActive}
+                          onChange={(e) => setNoticeSectionActive(e.target.checked)}
+                          className="sr-only peer"
+                        />
+                        <div className="w-12 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-emerald-500"></div>
+                      </label>
+                    </div>
+
+                    <Button
+                      type="submit"
+                      disabled={noticeSectionSaving}
+                      className="w-full py-6 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-500 text-white font-bold rounded-xl transition-all shadow-md shadow-emerald-500/10 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                    >
+                      {noticeSectionSaving ? (
+                        <>
+                          <Loader2 size={16} className="animate-spin" />
+                          Saving changes...
+                        </>
+                      ) : (
+                        "Save Notice Section"
+                      )}
+                    </Button>
+                  </form>
+
+                  {/* Right Column: Homepage Card Preview */}
+                  <div className="space-y-4">
+                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-400">Real-time Homepage Preview</label>
+                    <div className="border border-slate-200 rounded-2xl bg-[#FEF3E9] relative overflow-hidden p-4 md:p-5 shadow-inner min-h-[320px] flex items-center">
+                      <div className="w-full bg-gradient-to-br from-orange-50 to-orange-100/50 rounded-2xl p-5 border border-orange-200/80 shadow-sm relative overflow-hidden select-none">
+                        <div className="absolute top-0 right-0 bg-gradient-to-l from-orange-500 to-amber-500 text-white font-bold text-[9px] uppercase tracking-widest px-3 py-1 rounded-bl-xl text-[9px] flex items-center gap-1">
+                          <span className={`w-1.5 h-1.5 rounded-full bg-white ${noticeSectionActive ? "animate-pulse" : "opacity-50"}`} />
+                          {noticeSectionActive ? "Live Announcement" : "Inactive"}
+                        </div>
+                        <div className="flex items-center gap-2 mb-3">
+                          <div className="w-8 h-8 rounded-lg bg-orange-500/10 border border-orange-500/20 flex items-center justify-center text-orange-600">
+                            <Megaphone size={14} />
+                          </div>
+                          <span className="text-[10px] font-bold text-orange-700 uppercase tracking-widest">Notice Board</span>
+                        </div>
+                        <h3 className="text-sm font-black text-orange-950 leading-tight truncate mb-2">
+                          {noticeSectionTitle || "Notice title will appear here"}
+                        </h3>
+                        <p className="text-orange-900/70 text-xs leading-relaxed line-clamp-3 mb-3">
+                          {noticeSectionContent || "Your notice announcement body text will be displayed here..."}
+                        </p>
+                        {noticeSectionImage && (
+                          <div className="w-full h-28 rounded-xl overflow-hidden border border-orange-200 mb-3">
+                            <img src={noticeSectionImage} alt="" className="w-full h-full object-cover" />
+                          </div>
+                        )}
+                        <div className="flex items-center gap-2">
+                          <div className="px-3 py-1.5 bg-orange-500 text-white text-[10px] font-bold rounded-lg">
+                            Read Full Notice
+                          </div>
+                          <span className="text-[10px] text-orange-800 underline font-bold">View Separate Page</span>
+                        </div>
+                      </div>
+                    </div>
+                    <p className="text-[11px] text-slate-400 leading-relaxed italic text-center">
+                      * Preview demonstrates the inline notice card displayed on the homepage above the Why Support section.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ) : activeTab === "courses" ? (
               /* Courses CRUD Tab */
               <div className="p-6 md:p-8">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
@@ -1099,8 +1562,300 @@ export default function AdminDashboard() {
                   </div>
                 </div>
               </div>
-            )}
-          </div>
+            ) : activeTab === "projects" ? (
+              /* Projects CRUD Tab */
+              <div className="p-6 md:p-8">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                  {/* Left Column: Form Editor */}
+                  <form onSubmit={handleSaveProject} className="space-y-5 bg-white p-6 rounded-2xl border border-sky-100 shadow-sm">
+                    <div className="flex items-center gap-3 border-b border-slate-100 pb-4">
+                      <div className="w-10 h-10 rounded-xl bg-sky-50 flex items-center justify-center text-sky-600 shadow-sm">
+                        <FolderOpen size={20} />
+                      </div>
+                      <div>
+                        <h4 className="font-bold text-slate-800 text-lg">
+                          {editingProject ? "Edit Project" : "Add New Project"}
+                        </h4>
+                        <p className="text-xs text-slate-400">Configure dynamic regional initiatives in the database</p>
+                      </div>
+                    </div>
+
+                    {projectMessage && (
+                      <div className={`p-4 rounded-xl border flex items-center gap-3 text-sm font-medium ${
+                        projectMessage.type === "success" 
+                          ? "bg-emerald-50 border-emerald-200 text-emerald-700" 
+                          : "bg-red-50 border-red-200 text-red-700"
+                      }`}>
+                        <CheckCircle2 size={18} />
+                        <span>{projectMessage.text}</span>
+                      </div>
+                    )}
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div className="space-y-1">
+                        <label className="block text-xs font-bold uppercase tracking-wider text-slate-500">Project Title *</label>
+                        <input
+                          type="text"
+                          value={projectTitle}
+                          onChange={(e) => setProjectTitle(e.target.value)}
+                          placeholder="e.g. BKSY"
+                          required
+                          className="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-sm focus:outline-none focus:bg-white focus:border-sky-400 transition-all text-slate-800 placeholder-slate-400"
+                        />
+                      </div>
+                      <div className="space-y-1">
+                        <label className="block text-xs font-bold uppercase tracking-wider text-slate-500">Subtitle / Tagline *</label>
+                        <input
+                          type="text"
+                          value={projectSubtitle}
+                          onChange={(e) => setProjectSubtitle(e.target.value)}
+                          placeholder="e.g. Bengal Irrigation Scheme"
+                          required
+                          className="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-sm focus:outline-none focus:bg-white focus:border-sky-400 transition-all text-slate-800 placeholder-slate-400"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div className="space-y-1">
+                        <label className="block text-xs font-bold uppercase tracking-wider text-slate-500">Category *</label>
+                        <select
+                          value={projectCategory}
+                          onChange={(e) => setProjectCategory(e.target.value)}
+                          className="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-sm focus:outline-none focus:bg-white focus:border-sky-400 transition-all text-slate-800 text-slate-500"
+                        >
+                          <option value="Agriculture">Agriculture</option>
+                          <option value="Education">Education</option>
+                          <option value="Healthcare & Hygiene">Healthcare & Hygiene</option>
+                          <option value="Infrastructure & Tech">Infrastructure & Tech</option>
+                        </select>
+                      </div>
+                      <div className="space-y-1">
+                        <label className="block text-xs font-bold uppercase tracking-wider text-slate-500">Impact Stats *</label>
+                        <input
+                          type="text"
+                          value={projectStats}
+                          onChange={(e) => setProjectStats(e.target.value)}
+                          placeholder="e.g. 1,200+ Pumps Distributed"
+                          required
+                          className="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-sm focus:outline-none focus:bg-white focus:border-sky-400 transition-all text-slate-800 placeholder-slate-400"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div className="space-y-1">
+                        <label className="block text-xs font-bold uppercase tracking-wider text-slate-500">Lucide Icon *</label>
+                        <select
+                          value={projectIcon}
+                          onChange={(e) => setProjectIcon(e.target.value)}
+                          className="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-sm focus:outline-none focus:bg-white focus:border-sky-400 transition-all text-slate-800 text-slate-500"
+                        >
+                          <option value="Droplet">Droplet (Water/Irrigation)</option>
+                          <option value="Leaf">Leaf (Agriculture/Eco)</option>
+                          <option value="Zap">Zap (Electricity/Solar)</option>
+                          <option value="GraduationCap">GraduationCap (Skill training)</option>
+                          <option value="School">School (Education)</option>
+                          <option value="Cpu">Cpu (Tech/Digitization)</option>
+                          <option value="Activity">Activity (Diagnostics/Camps)</option>
+                          <option value="HeartHandshake">HeartHandshake (Hygiene/Care)</option>
+                          <option value="FolderOpen">FolderOpen (General/Default)</option>
+                        </select>
+                      </div>
+                      <div className="space-y-1">
+                        <label className="block text-xs font-bold uppercase tracking-wider text-slate-500">Color Theme Preset</label>
+                        <select
+                          value={projectThemePreset}
+                          onChange={(e) => setProjectThemePreset(e.target.value)}
+                          className="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-sm focus:outline-none focus:bg-white focus:border-sky-400 transition-all text-slate-800 text-slate-500"
+                        >
+                          <option value="Blue (Agriculture/Water)">Blue (Agriculture/Water)</option>
+                          <option value="Green (Agriculture/Plants)">Green (Agriculture/Plants)</option>
+                          <option value="Amber (Energy/Solar)">Amber (Energy/Solar)</option>
+                          <option value="Cyan (Education/Tech)">Cyan (Education/Tech)</option>
+                          <option value="Purple (Education/Schools)">Purple (Education/Schools)</option>
+                          <option value="Indigo (Infrastructure/Tech)">Indigo (Infrastructure/Tech)</option>
+                          <option value="Rose (Healthcare/Diagnostic)">Rose (Healthcare/Diagnostic)</option>
+                          <option value="Pink (Hygiene/Napkins)">Pink (Hygiene/Napkins)</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div className="space-y-1">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500">Key Benefits / Pillars (Comma Separated) *</label>
+                      <textarea
+                        value={projectBenefits}
+                        onChange={(e) => setProjectBenefits(e.target.value)}
+                        placeholder="e.g. Free soil testing, Live advisories, Toll-free support"
+                        required
+                        rows={2}
+                        className="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-sm focus:outline-none focus:bg-white focus:border-sky-400 transition-all text-slate-800 placeholder-slate-400 resize-none"
+                      />
+                    </div>
+
+                    <div className="space-y-2">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500">Project Cover Image</label>
+                      <div className="flex flex-col gap-4">
+                        {projectImage ? (
+                          <div className="relative w-full rounded-xl overflow-hidden border border-slate-200 aspect-video bg-slate-50 group">
+                            <img
+                              src={projectImage}
+                              alt="Project Cover Preview"
+                              className="w-full h-full object-cover"
+                            />
+                            <div className="absolute inset-0 bg-black/45 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+                              <button
+                                type="button"
+                                onClick={() => setProjectImage("")}
+                                className="px-4 py-2 bg-red-600 text-white text-xs font-bold rounded-lg hover:bg-red-700 transition-colors flex items-center gap-1.5 shadow-md cursor-pointer"
+                              >
+                                <Trash2 size={14} />
+                                Remove Image
+                              </button>
+                            </div>
+                          </div>
+                        ) : (
+                          <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50 transition-colors bg-slate-50">
+                            <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                              {isProjectImageUploading ? (
+                                <>
+                                  <Loader2 className="animate-spin text-sky-500 mb-2" size={24} />
+                                  <p className="text-xs text-slate-500 font-semibold">Processing image...</p>
+                                </>
+                              ) : (
+                                <>
+                                  <Upload className="text-slate-400 mb-2" size={24} />
+                                  <p className="text-sm font-bold text-slate-600">Click to upload project cover</p>
+                                  <p className="text-xs text-slate-400 mt-1">PNG, JPG or WEBP (Max 2MB)</p>
+                                </>
+                              )}
+                            </div>
+                            <input
+                              type="file"
+                              accept="image/*"
+                              className="hidden"
+                              disabled={isProjectImageUploading}
+                              onChange={async (e) => {
+                                const file = e.target.files?.[0];
+                                if (!file) return;
+                                if (file.size > 2 * 1024 * 1024) {
+                                  alert("Image size must be less than 2MB.");
+                                  return;
+                                }
+                                setIsProjectImageUploading(true);
+                                const reader = new FileReader();
+                                reader.onloadend = () => {
+                                  setProjectImage(reader.result as string);
+                                  setIsProjectImageUploading(false);
+                                };
+                                reader.onerror = () => {
+                                  alert("Failed to read image file.");
+                                  setIsProjectImageUploading(false);
+                                };
+                                reader.readAsDataURL(file);
+                              }}
+                            />
+                          </label>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="flex gap-3 pt-2">
+                      <Button
+                        type="submit"
+                        disabled={projectSaving}
+                        className="flex-1 py-6 bg-gradient-to-r from-sky-500 to-sky-600 hover:from-sky-600 hover:to-sky-500 text-white font-bold rounded-xl transition-all shadow-md shadow-sky-500/10 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                      >
+                        {projectSaving ? (
+                          <>
+                            <Loader2 size={16} className="animate-spin" />
+                            Saving changes...
+                          </>
+                        ) : (
+                          editingProject ? "Update Project Details" : "Publish Project"
+                        )}
+                      </Button>
+                      {editingProject && (
+                        <button
+                          type="button"
+                          onClick={resetProjectForm}
+                          className="px-6 py-3 border border-slate-200 hover:bg-slate-50 text-slate-600 font-bold rounded-xl transition-all text-sm cursor-pointer"
+                        >
+                          Cancel
+                        </button>
+                      )}
+                    </div>
+                  </form>
+
+                  {/* Right Column: Projects Directory List */}
+                  <div className="bg-white p-6 rounded-2xl border border-sky-100 shadow-sm space-y-6">
+                    <div>
+                      <h4 className="font-bold text-slate-800 text-lg">Initiatives Directory</h4>
+                      <p className="text-xs text-slate-400">Total verified projects in database: {projects.length}</p>
+                    </div>
+
+                    <div className="space-y-4 max-h-[640px] overflow-y-auto pr-1">
+                      {projects.length === 0 ? (
+                        <div className="py-20 text-center text-slate-400">
+                          <Inbox className="mx-auto text-sky-200 mb-3" size={42} />
+                          <p className="text-sm font-medium">No projects added yet.</p>
+                        </div>
+                      ) : (
+                        projects.map((project) => (
+                          <div 
+                            key={project._id} 
+                            className={`p-4 rounded-xl border transition-all flex gap-4 ${
+                              editingProject?._id === project._id 
+                                ? "border-sky-400 bg-sky-50/30 shadow-sm" 
+                                : "border-slate-100 hover:border-sky-200 bg-slate-50/50"
+                            }`}
+                          >
+                            <div className="w-20 h-20 rounded-lg overflow-hidden border border-slate-200 shrink-0 bg-slate-100">
+                              <img 
+                                src={typeof project.image === 'string' ? project.image : project.image?.src || ""} 
+                                alt={project.title} 
+                                className="w-full h-full object-cover"
+                              />
+                            </div>
+
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-center gap-2">
+                                <span className="text-[9px] font-bold tracking-wider uppercase text-sky-600 bg-sky-50 px-2 py-0.5 rounded border border-sky-100">
+                                  {project.category}
+                                </span>
+                                <span className="text-[9px] font-bold text-orange-600">
+                                  {project.stats}
+                                </span>
+                              </div>
+                              <h5 className="font-bold text-slate-900 text-sm truncate mt-1">{project.title}</h5>
+                              <p className="text-xs text-slate-500 line-clamp-1 mt-0.5">{project.subtitle}</p>
+                              
+                              <div className="flex items-center gap-3 mt-3">
+                                <button
+                                  type="button"
+                                  onClick={() => handleEditProject(project)}
+                                  className="text-xs font-bold text-sky-600 hover:text-sky-800 transition-colors"
+                                >
+                                  Edit Details
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={() => handleDeleteProject(project._id)}
+                                  className="text-xs font-bold text-red-500 hover:text-red-700 transition-colors"
+                                >
+                                  Remove
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        ))
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ) : null
+          }</div>
         </div>
       </main>
 

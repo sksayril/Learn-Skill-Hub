@@ -2,8 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Moon, Sun, Menu } from "lucide-react";
-import { useTheme } from "./theme-provider";
+import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -16,7 +15,6 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
-  const { theme, setTheme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -72,15 +70,6 @@ export function Navbar() {
         </div>
 
         <div className="flex items-center gap-2 md:gap-4">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            className="rounded-full text-orange-800/70 hover:text-orange-950 hover:bg-orange-100"
-          >
-            {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
-          </Button>
-
           <Button
             asChild
             variant="outline"
