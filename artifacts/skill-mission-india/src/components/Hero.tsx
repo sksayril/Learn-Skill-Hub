@@ -115,19 +115,6 @@ export function Hero() {
             <div className="flex flex-col sm:flex-row gap-4 mb-16 flex-wrap">
               <Button
                 size="lg"
-                className="btn-orange text-base px-8 py-6 rounded-2xl hover:-translate-y-1"
-                data-testid="button-hero-apply"
-                onClick={() => {
-                  const element = document.getElementById("apply");
-                  if (element) {
-                    element.scrollIntoView({ behavior: "smooth" });
-                  }
-                }}
-              >
-                Apply Now — It's Free
-              </Button>
-              <Button
-                size="lg"
                 variant="outline"
                 className="border-orange-300 bg-white/70 backdrop-blur-sm text-orange-900 hover:bg-orange-50 hover:border-orange-400 font-semibold text-base px-8 py-6 rounded-2xl transition-all hover:-translate-y-1"
                 data-testid="button-hero-download"
@@ -145,9 +132,11 @@ export function Hero() {
                 variant="outline"
                 className="border-orange-300 bg-white/70 backdrop-blur-sm text-orange-900 hover:bg-orange-50 hover:border-orange-400 font-semibold text-base px-8 py-6 rounded-2xl transition-all hover:-translate-y-1"
                 data-testid="button-hero-partner"
-                onClick={() => window.open("https://app.smi.in.net/agent/login", "_blank")}
+                asChild
               >
-                Become Training Partner
+                <a href="https://app.smi.in.net/associate/login">
+                  Become Training Partner
+                </a>
               </Button>
             </div>
           </motion.div>

@@ -5,16 +5,14 @@ import { motion } from "framer-motion";
 import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { NAV_ITEMS } from "@/lib/navigation";
-import { User, ShieldCheck } from "lucide-react";
+import { User } from "lucide-react";
 
 const logoImg = "/logo.jpeg";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [loginOpen, setLoginOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -75,20 +73,13 @@ export function Navbar() {
             variant="outline"
             className="hidden md:flex rounded-xl shadow-sm border-orange-200 text-orange-950 hover:bg-orange-50 hover:text-orange-900"
           >
-            <a href="/smiv1.apk" download>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="mr-2">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
-              </svg>
-              Download App
+            <a href="https://app.smi.in.net/login" target="_blank" rel="noopener noreferrer">
+              <User size={16} className="mr-2" />
+              Student Login
             </a>
           </Button>
 
-          <Button
-            onClick={() => setLoginOpen(true)}
-            className="hidden md:flex btn-orange rounded-xl shadow-orange-500/30 hover:-translate-y-0.5 cursor-pointer"
-          >
-            Apply Now
-          </Button>
+
 
           <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
             <SheetTrigger asChild>
@@ -114,22 +105,16 @@ export function Navbar() {
                     </a>
                   </SheetClose>
                 ))}
-                  <button
-                    onClick={() => { setLoginOpen(true); setMobileOpen(false); }}
-                    className="mt-4 px-4 py-3 rounded-xl text-center text-base font-bold btn-orange w-full block"
-                  >
-                    Apply Now
-                  </button>
+
                 <SheetClose asChild>
                   <a
-                    href="/smiv1.apk"
-                    download
+                    href="https://app.smi.in.net/login"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="mt-2 flex items-center justify-center px-4 py-3 rounded-xl text-center text-base font-bold border border-orange-200 text-orange-950 hover:bg-orange-50"
                   >
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="mr-2">
-                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
-                    </svg>
-                    Download App
+                    <User size={18} className="mr-2" />
+                    Student Login
                   </a>
                 </SheetClose>
               </nav>
@@ -138,46 +123,7 @@ export function Navbar() {
         </div>
       </div>
 
-      <Dialog open={loginOpen} onOpenChange={setLoginOpen}>
-        <DialogContent className="sm:max-w-md bg-orange-surface border-orange-200">
-          <DialogHeader>
-            <DialogTitle className="text-center text-xl font-black text-orange-950 mb-4">
-              Select Login Type
-            </DialogTitle>
-          </DialogHeader>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <a
-              href="https://app.smi.in.net/login"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex flex-col items-center gap-3 p-6 rounded-2xl bg-white border border-orange-100 shadow-sm hover:shadow-md hover:border-orange-300 transition-all text-center group"
-            >
-              <div className="w-12 h-12 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center group-hover:scale-110 transition-transform">
-                <User size={24} />
-              </div>
-              <div>
-                <h3 className="font-bold text-orange-950">Student Login</h3>
-                <p className="text-xs text-orange-900/60 mt-1">Access your learning portal</p>
-              </div>
-            </a>
-            
-            <a
-              href="https://app.smi.in.net/admin/login"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex flex-col items-center gap-3 p-6 rounded-2xl bg-white border border-orange-100 shadow-sm hover:shadow-md hover:border-orange-300 transition-all text-center group"
-            >
-              <div className="w-12 h-12 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center group-hover:scale-110 transition-transform">
-                <ShieldCheck size={24} />
-              </div>
-              <div>
-                <h3 className="font-bold text-orange-950">Admin Login</h3>
-                <p className="text-xs text-orange-900/60 mt-1">Administrative dashboard</p>
-              </div>
-            </a>
-          </div>
-        </DialogContent>
-      </Dialog>
+
     </motion.nav>
   );
 }

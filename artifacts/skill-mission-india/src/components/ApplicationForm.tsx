@@ -131,7 +131,7 @@ export function ApplicationForm() {
           {[
             { key: "category", label: "Category", options: ["General","OBC","SC/ST","EWS","Minority"] },
             { key: "qualification", label: "Highest Qualification", options: ["Below 10th","10th Pass","12th Pass","Graduate","Post Graduate"] },
-            { key: "district", label: "District", options: ["Agra","Ahmedabad","Bengaluru","Bhopal","Chennai","Delhi","Hyderabad","Jaipur","Kolkata","Lucknow","Mumbai","Patna","Pune","Surat","Varanasi"] },
+            { key: "district", label: "District", options: ["Alipurduar","Bankura","Birbhum","Cooch Behar","Dakshin Dinajpur","Darjeeling","Hooghly","Howrah","Jalpaiguri","Jhargram","Kalimpong","Kolkata","Malda","Murshidabad","Nadia","North 24 Parganas","Paschim Bardhaman","Paschim Medinipur","Purba Bardhaman","Purba Medinipur","Purulia","South 24 Parganas","Uttar Dinajpur"] },
           ].map(({ key, label, options }) => (
             <div key={key}>
               <label className="block text-xs font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">
